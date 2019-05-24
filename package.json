@@ -19,6 +19,7 @@
   "homepage": "https://github.com/osu-cs290-sp19/final-project-cs290-group-3#readme",
   "dependencies": {
     "express": "^4.17.0",
+    "mongodb": "^3.2.6",
     "nodemon": "^1.19.0"
   }
 }
