@@ -1,15 +1,40 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title>Treasr</title>
-
     <link rel="stylesheet" href="style.css" media="screen">
-
     <script src="/index.js" charset="utf-8" defer></script>
-
   </head>
   <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h>Treasr</h>
+      <div class="searchbar" class="side-link">
+        <input type="text" id="search-input" placeholder="Dig for Treasure...">
+        <button type="button" id="search-button">   </button> <!-- We need to add a searchbar image here, like in assignment 3 but idk if I want to us the exact same one.  -->
+      </div>
+      <a href="#" class="side-link">Home</a>  <!-- We will probably want to turn some of these into buttons, like the close-modal button in assig 3 -->
+      <a href="#" class="side-link">Boards</a>
+      <a href="#" class="side-link">Trending</a>
+      <a href="#" class="side-link">Natural Treasures</a>
+      <a href="#" class="side-link">Geo Caching</a>
+      <a href="#" class="side-link">More Boards</a>
+    </div>
+
+    <!-- Main Stuff -->
+    <main class="post-container">
+      <article class="post">
+        <div class="image">
+          <a href="https://cbsboston.files.wordpress.com/2013/04/milkpicture.jpg?w=640" class="expand"><img src="https://cbsboston.files.wordpress.com/2013/04/milkpicture.jpg?w=640"></a>
+        </div>
+        <div class="content">
+          <p class="text">This is the first post on this site (for testing purposes only!)</p>
+        </div>
+      </article>
+    </main>
+
+
 
   </body>
 </html>

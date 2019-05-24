@@ -1,0 +1,41 @@
+.sidebar {
+  width: 20%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  background-color: yellow;
+  top: 0;
+}
+
+.side-link {
+  text-decoration: none;
+  display: block;
+}
+
+.post-container {
+  padding-left: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.post {
+  width: 98%;
+  padding-right: 1%;
+  padding-left: 1%;
+  border: solid black;
+  background-color: lightblue;
+}
+
+img {
+  padding-left: 1px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  max-height: 200px;
+  max-width: 200px;
+  float: left;
+}
+
+.text {
+  display: inline;
+  padding-left: 10px;
+}
