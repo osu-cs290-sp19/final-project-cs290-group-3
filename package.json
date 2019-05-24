@@ -1,0 +1,24 @@
+{
+  "name": "final-project-cs290-group-3",
+  "version": "1.0.0",
+  "description": "CS290 Final Project",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osu-cs290-sp19/final-project-cs290-group-3.git"
+  },
+  "author": "Group 3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/osu-cs290-sp19/final-project-cs290-group-3/issues"
+  },
+  "homepage": "https://github.com/osu-cs290-sp19/final-project-cs290-group-3#readme",
+  "dependencies": {
+    "express": "^4.17.0",
+    "nodemon": "^1.19.0"
+  }
+}
