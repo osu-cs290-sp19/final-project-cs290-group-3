@@ -1,10 +1,40 @@
+/* CSS variables */
+:root {
+  --sideBarBackgroundColor: yellow;
+  --sideBarTransitionTime: 0.5s;
+}
+
 .sidebar {
-  width: 20%;
+  width: 0; /* Inital width */
   height: 100%;
   position: fixed;
   left: 0;
-  background-color: yellow;
+  background-color: var(--sideBarBackgroundColor);
   top: 0;
+  z-index: 1;
+  overflow-x: hidden;
+  transition: var(--sideBarTransitionTime);
+}
+
+#sidebar-hide-button {
+  width: 50px;
+  height: 50px;
+  color: black;
+  background-color: var(--sideBarBackgroundColor);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  text-decoration: none;
+  /* Position the button */
+  position: absolute;
+  left: 0; /* Initial Position */
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: var(--sideBarTransitionTime);
+
+}
+#hide-button-content {
+ margin-left: 30px;
 }
 
 .side-link {
@@ -13,9 +43,10 @@
 }
 
 .post-container {
-  padding-left: 20%;
+  margin-left: 0; /* Initial position */
   display: flex;
   flex-direction: column;
+  transition: var(--sideBarTransitionTime);
 }
 
 .post {
