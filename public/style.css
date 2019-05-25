@@ -4,7 +4,7 @@
   --sideBarTransitionTime: 0.5s;
 }
 
-.sidebar {
+#sidebar {
   width: 0; /* Inital width */
   height: 100%;
   position: fixed;
