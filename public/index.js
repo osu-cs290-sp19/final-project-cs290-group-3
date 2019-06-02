@@ -18,3 +18,46 @@ function toggleNav() {
     isNavHidden = true;
   }
 }
+
+var addPost = document.getElementById(whatever the button name is);
+
+addPost.addEventListener('click', handleNewPost);
+
+function handleNewPost() {
+  console.log('New post button was clicked');
+  var srcElement = document.getElementByClassName(whatever the hidden class of new post modal is);
+  for(var i = 0; i < srcElement.length; i++) {
+    srcElement[i].style.dispaly = 'block';
+  }
+}
+
+var button = document.getElementsByClassName(close post button);
+
+button[0].addEventListener('click', handlePostCloseButton);
+
+function handlePostCloseButton(event) {
+        console.log('close button was clicked');
+        srcele = document.getElementsByClassName(whatever hidden class of modal is);
+        for(i = 0; i <srcele.length; i++){
+                srcele[i].style.display = 'none';
+        }
+        document.getElementById('twit-text-input').value = "";
+        document.getElementById('twit-attribution-input').value = "";
+}
+
+
+
+button = document.getElementsByClassName(post X button);
+
+button[0].addEventListener('click', handlePostCancelButton);
+
+function handlePostCancelButton(event) {
+        console.log('cancel button was clicked');
+        srcele = document.getElementsByClassName(whatever hidden class of modal is);
+        for(i = 0; i <srcele.length; i++){
+                srcele[i].style.display = 'none';
+        }
+        document.getElementById('twit-text-input').value = "";
+        document.getElementById('twit-attribution-input').value = "";
+}
+
