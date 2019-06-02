@@ -19,7 +19,7 @@ function toggleNav() {
   }
 }
 
-var addPost = document.getElementById(whatever the button name is);
+/*var addPost = document.getElementById(whatever the button name is);
 
 addPost.addEventListener('click', handleNewPost);
 
@@ -59,5 +59,4 @@ function handlePostCancelButton(event) {
         }
         document.getElementById('twit-text-input').value = "";
         document.getElementById('twit-attribution-input').value = "";
-}
-
+}*/
