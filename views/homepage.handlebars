@@ -1,6 +1,8 @@
 {{> sidebar}}
 
-<main class="post-container">
+<main class="post-container" id="main">
+  <a id="sidebar-hide-button"><p id="hide-button-content">></p></a>
+  
   {{#each data}}
     {{> posttemp}}
   {{/each}}
