@@ -1,3 +1,4 @@
+
 .sidebar {
   width: 20%;
   height: 100%;
@@ -13,6 +14,8 @@
 }
 
 .post-container {
+  width: 98%;
+  height: 19%;
   padding-left: 20%;
   display: flex;
   flex-direction: column;
@@ -24,6 +27,7 @@
   padding-left: 1%;
   border: solid black;
   background-color: lightblue;
+  padding-bottom: 1%;
 }
 
 img {

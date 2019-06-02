@@ -5,6 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "nodemon server.js",
+    "build": "handlebars views/partials/posttemp.handlebars -f public/posttemp.js",
+    "prestart": "npm run build",
     "start": "nodemon server.js"
   },
   "repository": {
