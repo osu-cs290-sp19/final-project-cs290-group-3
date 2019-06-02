@@ -60,3 +60,4 @@ function handlePostCancelButton(event) {
         document.getElementById('twit-text-input').value = "";
         document.getElementById('twit-attribution-input').value = "";
 }
+
