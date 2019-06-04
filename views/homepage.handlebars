@@ -1,9 +1,13 @@
 {{> sidebar}}
 
-<main class="post-container" id="main">
+<div class="post-container" id="main">
   <a id="sidebar-hide-button"><p id="hide-button-content">></p></a>
-  
+
+  <h2 id="page-title">{{pageTitle}}</h2>
+
   {{#each data}}
     {{> posttemp}}
   {{/each}}
-</main>
+
+  {{> createpost}}
+</div>
