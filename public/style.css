@@ -44,13 +44,16 @@
   display: block;
 }
 
+#main {
+  margin-left: var(--sideBarInitialWidth);
+  transition: var(--sideBarTransitionTime);
+}
+
 .post-container {
   width: 98%;
   height: 19%;
-  margin-left: var(--sideBarInitialWidth);
   display: flex;
   flex-direction: column;
-  transition: var(--sideBarTransitionTime);
 }
 
 .post {
