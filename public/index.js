@@ -19,7 +19,7 @@ function toggleNav() {
   }
 }
 
-/*var addPost = document.getElementById(whatever the button name is);
+/*var addPost = document.getElementById('new-post-button');
 
 addPost.addEventListener('click', handleNewPost);
 
