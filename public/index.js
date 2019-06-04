@@ -41,8 +41,8 @@ function handlePostCloseButton(event) {
         for(i = 0; i <srcele.length; i++){
                 srcele[i].style.display = 'none';
         }
-        document.getElementById('twit-text-input').value = "";
-        document.getElementById('twit-attribution-input').value = "";
+        document.getElementById(input for photo ID).value = "";
+        document.getElementById(input for caption ID).value = "";
 }
 
 
@@ -57,6 +57,6 @@ function handlePostCancelButton(event) {
         for(i = 0; i <srcele.length; i++){
                 srcele[i].style.display = 'none';
         }
-        document.getElementById('twit-text-input').value = "";
-        document.getElementById('twit-attribution-input').value = "";
+        document.getElementById(input for photo ID).value = "";
+        document.getElementById(input for caption ID).value = "";
 }*/
