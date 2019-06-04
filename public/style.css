@@ -1,6 +1,6 @@
 /* CSS variables */
 :root {
-  --sideBarBackgroundColor: yellow;
+  --sideBarBackgroundColor: rgb(255,215,0);
   --sideBarTransitionTime: 0.5s;
   --sideBarInitialWidth: 0;
 }
