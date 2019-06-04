@@ -25,38 +25,38 @@ addPost.addEventListener('click', handleNewPost);
 
 function handleNewPost() {
   console.log('New post button was clicked');
-  var srcElement = document.getElementByClassName(whatever the hidden class of new post modal is);
+  var srcElement = document.getElementByClassName(hide);
   for(var i = 0; i < srcElement.length; i++) {
     srcElement[i].style.dispaly = 'block';
   }
 }
 
-var button = document.getElementsByClassName(close post button);
+var button = document.getElementsByClassName('close-button');
 
 button[0].addEventListener('click', handlePostCloseButton);
 
 function handlePostCloseButton(event) {
         console.log('close button was clicked');
-        srcele = document.getElementsByClassName(whatever hidden class of modal is);
+        srcele = document.getElementsByClassName(hide);
         for(i = 0; i <srcele.length; i++){
                 srcele[i].style.display = 'none';
         }
         document.getElementById(input for photo ID).value = "";
-        document.getElementById(input for caption ID).value = "";
+        document.getElementById('post-text').value = "";
 }
 
 
 
-button = document.getElementsByClassName(post X button);
+button = document.getElementsByClassName('cancel-button');
 
 button[0].addEventListener('click', handlePostCancelButton);
 
 function handlePostCancelButton(event) {
         console.log('cancel button was clicked');
-        srcele = document.getElementsByClassName(whatever hidden class of modal is);
+        srcele = document.getElementsByClassName(hide);
         for(i = 0; i <srcele.length; i++){
                 srcele[i].style.display = 'none';
         }
         document.getElementById(input for photo ID).value = "";
-        document.getElementById(input for caption ID).value = "";
+        document.getElementById('post-text').value = "";
 }*/
