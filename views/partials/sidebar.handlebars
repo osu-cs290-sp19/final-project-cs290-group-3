@@ -1,21 +1,30 @@
 <div id="sidebar">
-  <h>Treasr</h>
-  <div class="searchbar" class="side-link">
-    <input type="text" id="search-input" placeholder="Dig for Treasure...">
-    <button type="button" id="search-button">   </button> <!-- We need to add a searchbar image here, like in assignment 3 but idk if I want to us the exact same one.  -->
+  <div id="side-header">
+    <img src="photos/temp-logo.svg" alt="" title="" id="site-logo" />
+    <h1 id="site-title">Treasr</h1>
   </div>
-    <a href="#" class="side-link">Home</a>  <!-- We will probably want to turn some of these into buttons, like the close-modal button in assig 3 -->
-  <label for = "nav-container"> Boards <label>
-  <nav class = "nav-container">
-    <a href="#" class="side-link">Trending</a>
-    <a href="#" class="side-link">Natural Treasures</a>
-    <a href="#" class="side-link">Geo Caching</a>
+  <div class="side-searchbar">
+    <input type="text" id="search-input" placeholder="Dig for Treasure...">
+    <button type="button" id="search-button">Search</button>
+  </div>
+  <a href="/" class="side-link">Home</a>  <!-- We will probably want to turn some of these into buttons, like the close-modal button in assig 3 -->
+  <h2 class="side-nav-title">Boards</h2>
+  <nav class="nav-container">
+    <a href="/trending" class="side-link">Trending</a>
+    <a href="/natural-treasures" class="side-link">Natural Treasures</a>
+    <a href="/geo-caching" class="side-link">Geo Caching</a>
     <a href="#" class="side-link">More Boards</a>
   </nav>
+<<<<<<< HEAD
   <div>
     <btton type = "button" class = "new-post-button"> <i> New Thread </i> <button>
       {{< createpost}}
     <button type = "button" class = "settings-button"> <i> Settings </i> <button>
+=======
+  <div class="side-button">
+    <button type = "button" class = "new-post-button"> <i> New Post </i> </button>
+    <button type = "button" class = "settings-button"> <i> Settings </i> </button>
+>>>>>>> ffb1f66e889b60b48b16f8239ee9af9eb8325a86
       <!-- made settings a button in case we put some funtionality with it, otherwise we can leave it -->
   </div>
 </div>

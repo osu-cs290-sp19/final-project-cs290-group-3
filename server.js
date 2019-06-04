@@ -8,12 +8,33 @@ app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.use(express.static('public'));
 
-app.get('/home', function (req, res, next) {
-  res.status(200).render('homepage', {data: data}) //data?
+app.get('/', function (req, res, next) {
+  res.status(200).render('homepage', {
+    pageTitle: "Home",
+    data: data  //data?
+  })
+});
+
+app.get('/trending', function (req, res, next) {
+  res.status(200).render('homepage', {
+    pageTitle: "Trending"
+  })
+});
+
+app.get('/natural-treasures', function (req, res, next) {
+  res.status(200).render('homepage', {
+    pageTitle: "Natural Treasures"
+  })
+});
+
+app.get('/geo-caching', function (req, res, next) {
+  res.status(200).render('homepage', {
+    pageTitle: "Geo Caching"
+  })
 });
 
 app.get('*', function (req, res) {
-  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+  res.status(404).render('404');
 });
 
 app.listen(port, function () {

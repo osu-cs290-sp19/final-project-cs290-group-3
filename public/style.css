@@ -4,7 +4,16 @@
   --sideBarTransitionTime: 0.5s;
   --sideBarInitialWidth: 0;
 }
+/* ======================================
+              General css
+======================================== */
+body {}
 
+h1, h2, h3, h4, h5, h6 {margin: 0;}
+
+/* ======================================
+              Sidebar css
+======================================== */
 #sidebar {
   width: var(--sideBarInitialWidth);
   height: 100%;
@@ -18,8 +27,13 @@
   transition: var(--sideBarTransitionTime);
 }
 
+<<<<<<< HEAD
 .hide {
   display: none;
+=======
+#sidebar * {
+  transition: 0.3s;
+>>>>>>> ffb1f66e889b60b48b16f8239ee9af9eb8325a86
 }
 
 #sidebar-hide-button {
@@ -38,24 +52,90 @@
   transform: translate(-50%, -50%);
   transition: var(--sideBarTransitionTime);
 }
+
 #hide-button-content {
   margin-left: 30px;
 }
 
+#side-header {
+  max-width: 50%;
+  margin: 10px auto;
+  text-align: center;
+}
+#site-logo {
+  width: 20px;
+  height: 20px;
+}
+#site-title {
+  margin: 0;
+}
+
+.side-searchbar {
+  text-align: center;
+  margin: 10px 0;
+  padding-top: 10px;
+  border-top: 2px solid black;
+}
+
+.side-nav-title {
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  text-align: center;
+  width: 100%;
+}
+
+.nav-container {
+  margin: 10px 0;
+  border-bottom: 2px solid black;
+}
+
 .side-link {
+  color: inherit;
   text-decoration: none;
   display: block;
+  text-align: center;
+  font-size: 18px;
+  margin: 10px 0;
+}
+.side-link:visited {}
+.side-link:hover {
+  color: red;
+}
+.side-link:active {}
+
+.new-post-button, .settings-button {
+  display: block;
+  margin: 10px auto;
+}
+
+/* ======================================
+              Main css
+======================================== */
+#main {
+  margin-left: var(--sideBarInitialWidth);
+}
+
+#page-title {
+  text-align: center;
+  margin: 0;
+  font-size: 30px;
 }
 
 .post-container {
   width: 98%;
   height: 19%;
-  margin-left: var(--sideBarInitialWidth);
   display: flex;
   flex-direction: column;
   transition: var(--sideBarTransitionTime);
 }
 
+.error-container {
+  transition: var(--sideBarTransitionTime);
+}
+
+/* ======================================
+          Individual Post css
+======================================== */
 .post {
   width: 94%;
   margin: 10px 0 10px auto;
