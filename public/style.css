@@ -124,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 .side-button button i {
   font-style: normal;
 }
-.side-button button:hover, .side-button button:focus {
+.side-button button:hover {
   background-color: var(--sideLinkBacgroundColor);
 }
 
@@ -132,7 +132,9 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   outline: 0px solid transparent;
 }
 
-.side-button button:active {}
+.side-button button:active {
+
+}
 
 /* ======================================
               Main css
