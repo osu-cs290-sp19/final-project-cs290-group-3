@@ -28,20 +28,12 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   transition: var(--sideBarTransitionTime);
 }
 
-<<<<<<< HEAD
 .hide {
   display: none;
 }
 
-=======
-<<<<<<< HEAD
-.hide {
-  display: none;
-=======
->>>>>>> 6daf7ab590cee0495fe37763f16ea9bf7059d840
 #sidebar * {
   transition: 0.3s;
->>>>>>> ffb1f66e889b60b48b16f8239ee9af9eb8325a86
 }
 
 #sidebar-hide-button {
