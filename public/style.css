@@ -3,6 +3,7 @@
   --sideBarBackgroundColor: rgb(255,215,0);
   --sideBarTransitionTime: 0.5s;
   --sideBarInitialWidth: 0;
+  --sideLinkBacgroundColor: rgb(153,101,21);
 }
 /* ======================================
               General css
@@ -67,10 +68,12 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 
 .side-searchbar {
   text-align: center;
-  margin: 10px 0;
-  padding-top: 10px;
   border-top: 2px solid black;
 }
+#search-input {
+  margin: 10px 0;
+}
+#search-button {}
 
 .side-nav-title {
   border-top: 2px solid black;
@@ -80,7 +83,6 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 
 .nav-container {
-  margin: 10px 0;
   border-bottom: 2px solid black;
 }
 
@@ -90,18 +92,43 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   display: block;
   text-align: center;
   font-size: 18px;
-  margin: 10px 0;
+  padding: 5px 0;
 }
 .side-link:visited {}
 .side-link:hover {
-  color: red;
+  background-color: var(--sideLinkBacgroundColor);
 }
 .side-link:active {}
 
-.new-post-button, .settings-button {
+.side-button {}
+
+.side-button button {
   display: block;
-  margin: 10px auto;
+  width: 100%;
+  border: none;
+  color: inherit;
+  background-color: var(--sideBarBackgroundColor);
+  padding: 5px 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 18px;
+  transition: 0s color;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
+.side-button button i {
+  font-style: normal;
+}
+.side-button button:hover, .side-button button:focus {
+  background-color: var(--sideLinkBacgroundColor);
+}
+
+.side-button button:focus {
+  outline: 0px solid transparent;
+}
+
+.side-button button:active {}
 
 /* ======================================
               Main css
