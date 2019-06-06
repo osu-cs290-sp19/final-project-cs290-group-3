@@ -1,3 +1,4 @@
+// Sidenav toggle
 var isNavHidden = true; // Inital position
 var sideBarWidth = "20%";
 var sidebarButton = document.getElementById("sidebar-hide-button");
@@ -10,18 +11,36 @@ function toggleNav() {
     document.getElementById("main").style.marginLeft = sideBarWidth;
     document.getElementById("main").style.width = "78%";    // container width minus sidebar width
     document.getElementById("sidebar-hide-button").style.left = sideBarWidth;
-    document.getElementById("hide-button-content").innerHTML = "<";
+    document.getElementById("hide-button-content").innerText = "<";
     isNavHidden = false;
   } else {
     document.getElementById("sidebar").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
     document.getElementById("main").style.width = "98%";    // default container width
     document.getElementById("sidebar-hide-button").style.left = "0";
-    document.getElementById("hide-button-content").innerHTML = ">";
+    document.getElementById("hide-button-content").innerText = ">";
     isNavHidden = true;
   }
 }
 
+// Toggle Replies
+var viewButtons = document.getElementsByClassName("view-button");
+for(var i = 0; i < viewButtons.length; i++)
+{
+  viewButtons[i].addEventListener('click', toggleReplies);
+}
+
+function toggleReplies(event) {
+  if(event.target.parentNode.parentNode.parentNode.childNodes[3].classList.contains("hide")) {
+    event.target.parentNode.parentNode.parentNode.childNodes[3].classList.remove("hide");
+    event.target.innerText = "Hide Replies";
+  } else {
+    event.target.parentNode.parentNode.parentNode.childNodes[3].classList.add("hide");
+    event.target.innerText = "View Replies";
+  }
+}
+
+// New Post
 /*var addPost = document.getElementById('new-post-button');
 
 addPost.addEventListener('click', handleNewPost);

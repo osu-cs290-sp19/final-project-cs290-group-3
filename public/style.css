@@ -4,11 +4,15 @@
   --sideBarTransitionTime: 0.5s;
   --sideBarInitialWidth: 0;
   --sideLinkBacgroundColor: rgb(153,101,21);
+  --mainBackgroundColor: white;
+  --postBackgroundColor: lightblue;
 }
 /* ======================================
               General css
 ======================================== */
-body {}
+body {
+  background-color: var(--mainBackgroundColor);
+}
 
 h1, h2, h3, h4, h5, h6 {margin: 0;}
 
@@ -147,8 +151,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 
 .post-container {
-  width: 98%;
-  height: 19%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   transition: var(--sideBarTransitionTime);
@@ -161,24 +164,35 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 /* ======================================
           Individual Post css
 ======================================== */
+.post-and-replies {
+  margin: 20px 0 0 auto;
+  width: 95%;
+}
+
 .post {
   position: relative;
-  width: 94%;
-  margin: 10px 0 10px auto;
-  border: solid black;
-  background-color: lightblue;
-  padding: 1% 2% 1% 1%;
+  width: 100%;
+  border: 2px solid black;
+  background-color: var(--postBackgroundColor);
 }
 
 .post img {
   max-height: 200px;
   max-width: 200px;
   float: left;
+  margin: 10px;
+}
+
+.clear {
+  clear: both;
+}
+
+.content {
+  padding: 10px 0 10px 10px;
 }
 
 .text {
   display: inline;
-  padding-left: 10px;
 }
 
 /* Post Buttons */
@@ -201,3 +215,18 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 .reply-button {}
 .view-button {}
+
+/* reply css */
+.reply-container {
+  position: relative;
+  width: 100%;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  background-color: var(--postBackgroundColor);
+  margin: 0 0 0 auto;
+}
+
+.reply {
+  border-bottom: 2px solid black;
+  padding: 10px;
+}

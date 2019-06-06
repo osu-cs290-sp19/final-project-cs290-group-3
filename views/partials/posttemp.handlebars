@@ -1,17 +1,24 @@
-<article class="post">
-  <button type="button" class="report-button">Sink</button>
-  <div class="image">
-    <img class="img" src="{{img}}" />
+<div class="post-and-replies">
+  <article class="post">
+    <button type="button" class="report-button">Sink</button>
+    <div class="image">
+      <img class="img" src="{{img}}" />
+    </div>
+    <div class="content">
+      <p class="text">
+        {{txt}}
+      </p>
+    </div>
+    <br class="clear">
+    <div class="post-buttons">
+      <button type="button" class="like-button"><p class="like-number">0</p> Like</button>
+      <button type="button" class="reply-button">Reply</button>
+      <button type="button" class="view-button">View Replies</button>
+    </div>
+  </article>
+  <div class="reply-container hide">
+    {{#each replies}}
+      {{> replytemp}}
+    {{/each}}
   </div>
-  <div class="content">
-    <p class="text">
-      {{txt}}
-    </p>
-  </div>
-  <div class="post-buttons">
-
-    <button type="button" class="like-button"><p class="like-number">0</p> Like</button>
-    <button type="button" class="reply-button">Reply</button>
-    <button type="button" class="view-button">View Replies</button>
-  </div>
-</article>
+</div>
