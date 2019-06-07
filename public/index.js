@@ -23,20 +23,47 @@ function toggleNav() {
   }
 }
 
-// Toggle Replies
-var viewButtons = document.getElementsByClassName("view-button");
-for(var i = 0; i < viewButtons.length; i++)
-{
-  viewButtons[i].addEventListener('click', toggleReplies);
+// Add event listener to all posts and pass clicked element to postEventListener function
+var postElements = document.getElementsByClassName("post-and-replies");
+for(var i = 0; i < postElements.length; i++) {
+  postElements[i].addEventListener('click', postEventListener);
 }
 
+function postEventListener(event) {
+  if(event.target.classList.contains("view-button")){
+    toggleReplies(event);
+  } else if(event.target.classList.contains("reply-button")) {
+    showCreateReply(event);
+  } else if(event.target.classList.contains("cancel-reply-button")) {
+    hideCreateReply(event);
+  } else if(event.target.classList.contains("create-reply-button")) {
+    postReply(event);
+  }
+}
+
+// Toggle Replies
 function toggleReplies(event) {
-  if(event.target.parentNode.parentNode.parentNode.childNodes[3].classList.contains("hide")) {
-    event.target.parentNode.parentNode.parentNode.childNodes[3].classList.remove("hide");
+  if(event.target.parentNode.parentNode.parentNode.childNodes[5].classList.contains("hide")) {
+    event.target.parentNode.parentNode.parentNode.childNodes[5].classList.remove("hide");
     event.target.innerText = "Hide Replies";
   } else {
-    event.target.parentNode.parentNode.parentNode.childNodes[3].classList.add("hide");
+    event.target.parentNode.parentNode.parentNode.childNodes[5].classList.add("hide");
     event.target.innerText = "View Replies";
+  }
+}
+
+// Show Create Reply
+function showCreateReply(event) {
+  if(event.target.parentNode.parentNode.parentNode.childNodes[3].classList.contains("hide")) {
+    event.target.parentNode.parentNode.parentNode.childNodes[3].classList.remove("hide");
+  }
+}
+
+// Hide Create Reply
+function hideCreateReply(event) {
+  if(!event.target.parentNode.classList.contains("hide")) {
+    event.target.parentNode.classList.add("hide");
+    event.target.parentNode.childNodes[1].childNodes[1].value = "";
   }
 }
 

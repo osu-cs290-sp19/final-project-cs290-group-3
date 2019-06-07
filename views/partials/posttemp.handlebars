@@ -16,6 +16,13 @@
       <button type="button" class="view-button">View Replies</button>
     </div>
   </article>
+  <div class="create-reply hide">
+    <div class="create-reply-input">
+      <textarea placeholder="New Reply text."></textarea>
+    </div>
+    <button type="button" class="cancel-reply-button">Cancel</button>
+    <button type="button" class="create-reply-button">Post Reply</button>
+  </div>
   <div class="reply-container hide">
     {{#each replies}}
       {{> replytemp}}
