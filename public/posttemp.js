@@ -7,7 +7,9 @@ templates['posttemp'] = template({"1":function(container,depth0,helpers,partials
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div class=\"post-and-replies\">\r\n  <article class=\"post\">\r\n    <button type=\"button\" class=\"report-button\">Sink</button>\r\n    <div class=\"image\">\r\n      <img class=\"img\" src=\""
+  return "<div class=\"post-and-replies\">\r\n  <article class=\"post\" postId=\""
+    + alias4(((helper = (helper = helpers.postId || (depth0 != null ? depth0.postId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"postId","hash":{},"data":data}) : helper)))
+    + "\">\r\n    <button type=\"button\" class=\"report-button\">Sink</button>\r\n    <div class=\"image\">\r\n      <img class=\"img\" src=\""
     + alias4(((helper = (helper = helpers.img || (depth0 != null ? depth0.img : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"img","hash":{},"data":data}) : helper)))
     + "\" />\r\n    </div>\r\n    <div class=\"content\">\r\n      <p class=\"text\">\r\n        "
     + alias4(((helper = (helper = helpers.txt || (depth0 != null ? depth0.txt : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"txt","hash":{},"data":data}) : helper)))

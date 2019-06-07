@@ -67,6 +67,37 @@ function hideCreateReply(event) {
   }
 }
 
+// Send reply data to the server
+function postReply(event) {
+  if (event.target.parentNode.childNodes[1].childNodes[1].value) {
+    var request = new XMLHttpRequest();
+    var pageTitle = document.getElementById('page-title').innerText;
+    var postId = event.target.parentNode.parentNode.childNodes[1].getAttribute('postId');
+
+    var requestURL = '/' + pageTitle + '/' + postId + '/addReply';
+    request.open('POST', requestURL);
+    var replyObj = {
+      "text": event.target.parentNode.childNodes[1].childNodes[1].value
+    };
+    var requestBody = JSON.stringify(replyObj);
+    request.setRequestHeader (
+      'Content-Type', 'application/json'
+    );
+    var previousTarget = event.target;
+    request.addEventListener('load', function (event) {
+      if (event.target.status !== 200) {
+        var message = event.target.response;
+        alert("Error storing reply in database: " + message);
+      } else {
+        previousTarget.parentNode.childNodes[1].childNodes[1].value = "";
+        // Update UI to show that the reply was successfully stored.
+      }
+    });
+
+    request.send(requestBody);
+  }
+}
+
 // New Post
 /*var addPost = document.getElementById('new-post-button');
 
