@@ -87,12 +87,12 @@ app.get('*', function (req, res) {
 });
 
 const client = new MongoClient(mongoUrl, { useNewUrlParser: true });
-client.connect(function(err, db) {
+client.connect(function(err, client) {
   if (err) throw err;
-  db = mongoDBDatabase = client.db(mongoDBName);
-  console.log("== MongoDB connected to " + mongoDBName + " database")
+  db = client.db(mongoDBName);
+  console.log("== MongoDB connected to " + mongoDBName + " database");
   app.listen(port, function () {
     console.log("== Server is listening on port", port);
   });
   client.close();
-})
+});

@@ -1,0 +1,42 @@
+[
+  {
+    "pageTitle": "Home",
+    "posts": [
+      {
+        "postId": 0,
+        "img": "https://cbsboston.files.wordpress.com/2013/04/milkpicture.jpg?w=640",
+        "txt": "This is the first post on this site (for testing purposes only!)",
+        "replies": [
+          {
+            "text": "Test reply 1."
+          },
+          {
+            "text": "Test reply 2."
+          }
+        ]
+      },
+      {
+        "postId": 1,
+        "img": "http://cdn01.cdn.justjaredjr.com/wp-content/uploads/headlines/2019/03/tom-holland-on-his-first-day-on-spider-man-set-had-it-in-the-bag2.jpg",
+        "txt": "This is a photo of spiderman <--",
+        "replies": [
+          {
+            "text": "Test reply 3."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "pageTitle": "Trending",
+    "posts": []
+  },
+  {
+    "pageTitle": "Natural Treasures",
+    "posts": []
+  },
+  {
+    "pageTitle": "Geo Caching",
+    "posts": []
+  }
+]
