@@ -104,7 +104,7 @@ newPostButton.addEventListener('click', handleNewPostButton);
 function handleNewPostButton(event) {
   console.log('New Twit was clicked');
   var srcElement = document.getElementsByClassName('hide');
-  for(var i = 0, i < srcElement.length; i++) {
+  for(var i = 0; i < srcElement.length; i++) {
     scrElement[i].style.display = 'block';
   }
 }
