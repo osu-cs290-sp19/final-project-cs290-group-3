@@ -57,11 +57,16 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   margin-left: 30px;
 }
 
-#side-header {
-  margin: 10px auto;
+#side-header, #side-header a {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+}
+#side-header a {
+  padding: 10px 0;
+  text-decoration: none;
+  color: inherit;
 }
 #site-logo {
   width: 20px;

@@ -7,7 +7,8 @@
     "test": "nodemon server.js",
     "build": "handlebars views/partials/posttemp.handlebars -f public/posttemp.js",
     "prestart": "npm run build",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "wps-mongodb-init": "mongoimport --host \"cs290-group3-shard-00-01-ujs5i.mongodb.net:27017\" --ssl --authenticationDatabase admin --username admin --password group3Admin --db group3 --collection postData --file ./mongo-db-init.json --jsonArray"
   },
   "repository": {
     "type": "git",
