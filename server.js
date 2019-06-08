@@ -3,15 +3,12 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var Handlebars = require('handlebars');
 
 var app = express();
 var port = process.env.PORT || 3000;
-var data = require('./data');
-data = data.reverse(); // reverse posts array to show the newest post first
-for(var i = 0; i < data.length; i++)
-{
-  data[i].replies.reverse();  // reverse replies array for each post to show the newest reply first
-}
+
+Handlebars.registerHelper('reverseArray', (array) => array.reverse());
 
 //var mongoHost = process.env.MONGO_HOST;
 //var mongoPort = process.env.MONGO_PORT || 27017;
@@ -35,7 +32,6 @@ app.get('/', function (req, res, next) {
         error: "Error fetching people from DB"
       });
     } else {
-      console.log("== pageData:", pageData);
       res.status(200).render('homepage', pageData[0]);
     }
   });
@@ -44,7 +40,6 @@ app.get('/', function (req, res, next) {
 app.get('/:pageTitle', function (req, res, next) {
   var pageTitle = req.params.pageTitle;
   pageTitle = parsePageTitle(pageTitle);
-  console.log(pageTitle);
   var collection = db.collection('postData');
   var postArray = collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
     if (err) {
