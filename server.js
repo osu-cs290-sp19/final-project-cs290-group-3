@@ -28,29 +28,44 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Home",
-    data: data  //data?
-  })
+  var collection = db.collection('postData');
+  var postArray = collection.find({ pageTitle: "Home" }).toArray(function(err, pageData) {
+    if (err) {
+      res.status(500).send({
+        error: "Error fetching people from DB"
+      });
+    } else {
+      console.log("== pageData:", pageData);
+      res.status(200).render('homepage', pageData[0]);
+    }
+  });
 });
 
-app.get('/trending', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Trending"
-  })
+app.get('/:pageTitle', function (req, res, next) {
+  var pageTitle = req.params.pageTitle;
+  pageTitle = parsePageTitle(pageTitle);
+  console.log(pageTitle);
+  var collection = db.collection('postData');
+  var postArray = collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
+    if (err) {
+      res.status(500).send({
+        error: "Error fetching people from DB"
+      });
+    } else {
+      console.log("== pageData:", pageData);
+      res.status(200).render('homepage', pageData[0]);
+    }
+  });
 });
 
-app.get('/natural-treasures', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Natural Treasures"
-  })
-});
-
-app.get('/geo-caching', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Geo Caching"
-  })
-});
+function parsePageTitle(pageTitle) {
+  var pageTitle = pageTitle.replace("-", " ");
+  var splitStr = pageTitle.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  return splitStr.join(' ');
+}
 
 app.post('/:pageTitle/addPost', function(req, res, next) {
   if(req.body && req.body.img && req.body.txt) {
@@ -94,5 +109,4 @@ client.connect(function(err, client) {
   app.listen(port, function () {
     console.log("== Server is listening on port", port);
   });
-  client.close();
 });
