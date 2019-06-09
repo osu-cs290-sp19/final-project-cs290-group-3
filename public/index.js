@@ -153,7 +153,7 @@ closeButton[0].addEventListener('click', handleCloseButton);
 function handleCloseButton(event) {
   console.log('close button was clicked');
   srcElement = document.getElementsByClassName('hide');
-  for(i = 0, i < srcElement.length; i++){
+  for(i = 0; i < srcElement.length; i++){
     srcElement[i].style.display = 'none';
   }
   document.getElementById('post-text').value = "";
