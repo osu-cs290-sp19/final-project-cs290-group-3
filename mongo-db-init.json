@@ -33,7 +33,19 @@
   },
   {
     "pageTitle": "Natural Treasures",
-    "posts": []
+    "posts": [
+      {
+        "postId": 0,
+        "img": "https://assets.nrdc.org/sites/default/files/styles/full_content--retina/public/media-uploads/wldpsc3_165552493_2400.jpg?itok=EEkOtXoK",
+        "txt": "Test natural treasures.",
+        "replies": [
+          {
+            "text": "Test reply 4."
+          },
+          {
+            "text": "Test reply 5."
+          }
+    ]
   },
   {
     "pageTitle": "Geo Caching",
