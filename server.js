@@ -66,29 +66,44 @@ app.get('/:pageTitle', function (req, res, next) {
   });
 });
 
-function parsePageTitle(pageTitle) {
-  var pageTitle = pageTitle.replace("-", " ");
-  var splitStr = pageTitle.toLowerCase().split(' ');
-  for (var i = 0; i < splitStr.length; i++) {
-    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
-  }
-  return splitStr.join(' ');
-}
-
 app.post('/:pageTitle/addPost', function(req, res, next) {
   if(req.body && req.body.img && req.body.txt) {
+    var pageTitle = req.params.pageTitle;
+    pageTitle = parsePageTitle(pageTitle);
     console.log("== Client added the following post:");
-    console.log("   - pageTitle:", req.params.pageTitle);
+    console.log("   - pageTitle:", pageTitle);
     console.log("   - img url:", req.body.img);
-    console.log("   - txt:", req.body.img);
+    console.log("   - txt:", req.body.txt);
 
     var collection = db.collection('postData');
-    var postLength = collection.findOne({ pageTitle: pageTitle }).posts.length;
-    /*var post = {
+    getNextPostId(pageTitle, function(nextPostId) {
+      if(nextPostId < 0) {
+        res.status(500).send({
+          error: "Error inserting post into DB"
+        });
+      } else {
+        var post = {
+          postId: nextPostId,
+          img: req.body.img,
+          txt: req.body.txt,
+          replies: []
+        }
 
-    }*/
+        collection.updateOne(
+          { pageTitle: pageTitle },
+          { $push: { posts: post } },
+          function (err, result) {
+            if (err) {
+              res.status(500).send({
+                error: "Error inserting post into DB"
+              });
+            }
+          }
+        )
 
-    res.status(200).send("Post successfully added");
+        res.status(200).send("Post successfully added");
+      }
+    });
   } else {
     res.status(400).send("Requests to this path must contain a JSON body with img and txt fields.");
   }
@@ -148,3 +163,28 @@ client.connect(function(err, client) {
     console.log("== Server is listening on port", port);
   });
 });
+
+function parsePageTitle(pageTitle) {
+  var pageTitle = pageTitle.replace("-", " ");
+  var splitStr = pageTitle.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  return splitStr.join(' ');
+}
+
+function getNextPostId(counterName, callback) {
+  var collection = db.collection('counters');
+  collection.updateOne(
+    { _id: counterName },
+    { $inc:{ numPosts:1 } }
+  );
+
+  collection.findOne({ _id: counterName }, function(err, data) {
+    if (err) {
+      callback(-1);
+    } else {
+      callback(data.numPosts);
+    }
+  });
+}
