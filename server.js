@@ -3,15 +3,12 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var Handlebars = require('handlebars');
 
 var app = express();
 var port = process.env.PORT || 3000;
-var data = require('./data');
-data = data.reverse(); // reverse posts array to show the newest post first
-for(var i = 0; i < data.length; i++)
-{
-  data[i].replies.reverse();  // reverse replies array for each post to show the newest reply first
-}
+
+Handlebars.registerHelper('reverseArray', (array) => array.reverse());
 
 //var mongoHost = process.env.MONGO_HOST;
 //var mongoPort = process.env.MONGO_PORT || 27017;
@@ -28,29 +25,42 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Home",
-    data: data  //data?
-  })
+  var collection = db.collection('postData');
+  var postArray = collection.find({ pageTitle: "Home" }).toArray(function(err, pageData) {
+    if (err) {
+      res.status(500).send({
+        error: "Error fetching people from DB"
+      });
+    } else {
+      res.status(200).render('homepage', pageData[0]);
+    }
+  });
 });
 
-app.get('/trending', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Trending"
-  })
+app.get('/:pageTitle', function (req, res, next) {
+  var pageTitle = req.params.pageTitle;
+  pageTitle = parsePageTitle(pageTitle);
+  var collection = db.collection('postData');
+  var postArray = collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
+    if (err) {
+      res.status(500).send({
+        error: "Error fetching people from DB"
+      });
+    } else {
+      console.log("== pageData:", pageData);
+      res.status(200).render('homepage', pageData[0]);
+    }
+  });
 });
 
-app.get('/natural-treasures', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Natural Treasures"
-  })
-});
-
-app.get('/geo-caching', function (req, res, next) {
-  res.status(200).render('homepage', {
-    pageTitle: "Geo Caching"
-  })
-});
+function parsePageTitle(pageTitle) {
+  var pageTitle = pageTitle.replace("-", " ");
+  var splitStr = pageTitle.toLowerCase().split(' ');
+  for (var i = 0; i < splitStr.length; i++) {
+    splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  return splitStr.join(' ');
+}
 
 app.post('/:pageTitle/addPost', function(req, res, next) {
   if(req.body && req.body.img && req.body.txt) {
@@ -94,5 +104,4 @@ client.connect(function(err, client) {
   app.listen(port, function () {
     console.log("== Server is listening on port", port);
   });
-  client.close();
 });
