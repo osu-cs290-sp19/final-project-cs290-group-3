@@ -24,7 +24,11 @@
     <button type="button" class="create-reply-button">Post Reply</button>
   </div>
   <div class="reply-container hide">
-    <div class="hide">{{reverseArray replies}}</div>
+    <div class="hide">
+      {{#checklength replies 0}}
+        {{reverseArray replies}}
+      {{/checklength}}
+    </div>
     {{#each replies}}
       {{> replytemp}}
     {{/each}}

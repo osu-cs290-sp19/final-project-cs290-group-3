@@ -4,7 +4,11 @@
   <a id="sidebar-hide-button"><p id="hide-button-content"></p></a>
 
   <h2 id="page-title">{{pageTitle}}</h2>
-  <div class="hide">{{reverseArray posts}}</div>
+  <div class="hide">
+    {{#checklength posts 0}}
+      {{reverseArray posts}}
+    {{/checklength}}
+  </div>
 
   {{#each posts}}
     {{> posttemp}}

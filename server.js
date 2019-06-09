@@ -8,6 +8,16 @@ var Handlebars = require('handlebars');
 var app = express();
 var port = process.env.PORT || 3000;
 
+Handlebars.registerHelper('checklength', function (v1, v2, options) {
+'use strict';
+  if(v1 != undefined) {
+    if (v1.length>v2) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  }
+  return options.inverse(this);
+});
 Handlebars.registerHelper('reverseArray', (array) => array.reverse());
 
 //var mongoHost = process.env.MONGO_HOST;
@@ -26,18 +36,7 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res, next) {
   var collection = db.collection('postData');
-  var pageTitle = "Home";
-  var postId = 0;
-  collection.find({ pageTitle: pageTitle, "posts.postId": postId }).toArray(function(err, post) {
-    if (err) {
-      res.status(500).send({
-        error: "Error fetching post from DB"
-      });
-    } else {
-      console.log("== Post:", post);
-    }
-  });
-  var postArray = collection.findOne({ pageTitle: "Home" }, function(err, pageData) {
+  collection.findOne({ pageTitle: "Home" }, function(err, pageData) {
     if (err) {
       res.status(500).send({
         error: "Error fetching people from DB"
@@ -48,17 +47,20 @@ app.get('/', function (req, res, next) {
   });
 });
 
+app.get('/Favicon.ico', function (req, res, next) {
+  res.status(204);
+});
+
 app.get('/:pageTitle', function (req, res, next) {
   var pageTitle = req.params.pageTitle;
   pageTitle = parsePageTitle(pageTitle);
   var collection = db.collection('postData');
-  var postArray = collection.findOne({ pageTitle: pageTitle }, function(err, pageData) {
+  collection.findOne({ pageTitle: pageTitle }, function(err, pageData) {
     if (err) {
       res.status(500).send({
         error: "Error fetching page from DB"
       });
     } else {
-      console.log("== pageData:", pageData);
       res.status(200).render('homepage', pageData);
     }
   });
@@ -80,7 +82,11 @@ app.post('/:pageTitle/addPost', function(req, res, next) {
     console.log("   - img url:", req.body.img);
     console.log("   - txt:", req.body.img);
 
-    // Add post to DB here
+    var collection = db.collection('postData');
+    var postLength = collection.findOne({ pageTitle: pageTitle }).posts.length;
+    /*var post = {
+
+    }*/
 
     res.status(200).send("Post successfully added");
   } else {
@@ -103,8 +109,8 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
     };
 
     collection.updateOne(
-      { pageTitle: pageTitle, "posts.postId": postId },
-      { $push: { "posts.$.replies": reply } },
+      { pageTitle: pageTitle , "posts.postId": postId },
+      { $push: { "posts.$.postId": reply } },
       function (err, result) {
         if (err) {
           res.status(500).send({
@@ -112,6 +118,7 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
           });
         } else {
           //console.log("== update result:", result);
+          console.log("== result.matchedCount:",result.matchedCount);
           if (result.matchedCount > 0) {
             console.log("== success");
             res.status(200).send("Success");
