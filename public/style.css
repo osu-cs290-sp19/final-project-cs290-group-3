@@ -1,17 +1,17 @@
 /* CSS variables */
 :root {
-  --sideBarBackgroundColor: rgb(255,215,0);
+  --sideBarBackgroundColor: #F9BF77;
   --sideBarTransitionTime: 0.5s;
   --sideBarInitialWidth: 0;
   --sideLinkBacgroundColor: rgb(153,101,21);
-  --mainBackgroundColor: white;
-  --postBackgroundColor: lightblue;
+  --mainBackgroundColor: #FDEEDD;
+  --postBackgroundColor: #C2C9DD;
 }
 /* ======================================
               General css
 ======================================== */
 body {
-  background-color: var(--mainBackgroundColor);
+  background: var(--mainBackgroundColor);
 }
 
 h1, h2, h3, h4, h5, h6 {margin: 0;}
@@ -24,7 +24,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   height: 100%;
   position: fixed;
   left: 0;
-  background-color: var(--sideBarBackgroundColor);
+  background: #F9BF77;
   top: 0;
   z-index: 1;
   overflow-x: hidden;
@@ -40,7 +40,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   width: 50px;
   height: 50px;
   color: black;
-  background-color: var(--sideBarBackgroundColor);
+  background: var(--sideBarBackgroundColor);
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -173,8 +173,8 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 .post {
   position: relative;
   width: 100%;
-  border: 2px solid black;
-  background-color: var(--postBackgroundColor);
+  border: 2px solid #789BBD;
+  background: var(--postBackgroundColor);
 }
 
 .post img {
