@@ -98,8 +98,8 @@ function postReply(event) {
   }
 }
 
-var newPostButton = document.getElementById('new-post-button');
-newPostButton.addEventListener('click', handleNewPostButton);
+var newPostButton = document.getElementsByClassName('new-post-button');
+newPostButton[0].addEventListener('click', handleNewPostButton);
 
 function handleNewPostButton(event) {
   console.log('New Twit was clicked');
