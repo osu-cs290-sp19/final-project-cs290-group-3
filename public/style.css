@@ -89,9 +89,18 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 #search-input {
   margin: 10px 0;
   border-radius: 5px;
+  border: 1px solid grey;
+  padding: 5px;
 }
 #search-button {
     border-radius: 5px;
+    border: 1px solid black;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#search-button:hover {
+  background-color: #C2C9DD;
 }
 
 .side-nav-title {
@@ -190,6 +199,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   width: 100%;
   border: 2px solid #789BBD;
   background: var(--postBackgroundColor);
+  border-radius: 5px;
 }
 
 .post img {
@@ -197,6 +207,8 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   max-width: 200px;
   float: left;
   margin: 10px;
+  border-radius: 10px;
+  border: 2px solid #789BBD;
 }
 
 .clear {
@@ -209,6 +221,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 
 .text {
   display: inline;
+  font-size: 18px;
 }
 
 /* Post Buttons */
@@ -217,6 +230,14 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   top: 5px;
   right: 5px;
   color: red;
+  border-radius: 5px;
+  border: 1px solid #789BBD;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.report-button:hover {
+  background-color: #FDEEDD;
 }
 
 .post-buttons {
@@ -225,12 +246,41 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   right: 5px;
 }
 
-.like-button {}
+.like-button {
+  border-radius: 5px;
+  border: 1px solid #789BBD;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  background-color: #FDEEDD;
+}
+
 .like-number {
   display:inline;
 }
-.reply-button {}
-.view-button {}
+.reply-button {
+  border-radius: 5px;
+  border: 1px solid #789BBD;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.reply-button:hover {
+  background-color: #FDEEDD;
+}
+
+.view-button {
+  border-radius: 5px;
+  border: 1px solid #789BBD;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.view-button:hover {
+  background-color: #FDEEDD;
+}
 
 /* creat ppost modal*/
 .new-post-button {
@@ -278,7 +328,8 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 
 .modal-header h3 {
   margin: 0;
-  font-size: 20px;
+  flex: center;
+  font-size: 24px;
 }
 
 .close-button {
@@ -286,10 +337,15 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   right: 10px;
   top: 5px;
   font-size: 20px;
-  border: none;
-  background: none;
-  padding: 0;
+  border: 2px solid #789BBD;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 2px 4px;
   cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #eee;
 }
 
 .modal-body {
@@ -336,10 +392,10 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   font-size: 16px;
   background-color: #fff;
   color: #333;
-  border: 2px solid #333;
+  border: 2px solid #789BBD;
   border-radius: 5px;
-  padding: 10px;
-  margin-right: 20px;
+  padding: 5px;
+  margin-left: 20px;
   cursor: pointer;
 }
 
@@ -348,12 +404,11 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 
 .modal-footer .accept-button {
-  background-color: #F9BF77;
-  color: #fff;
+  background-color: #fff;
 }
 
 .modal-footer .accept-button:hover {
-  background-color: #087dde;
+  background-color: #FDEEDD;
 }
 
 /* reply css */
