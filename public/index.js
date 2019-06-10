@@ -117,26 +117,26 @@ function postEventListener(event) {
 
 // Toggle Replies
 function toggleReplies(event) {
-  if(event.target.parentNode.parentNode.parentNode.childNodes[5].classList.contains("hide")) {
-    event.target.parentNode.parentNode.parentNode.childNodes[5].classList.remove("hide");
+  if(event.target.parentNode.parentNode.parentNode.childNodes[5].classList.contains("hide2")) {
+    event.target.parentNode.parentNode.parentNode.childNodes[5].classList.remove("hide2");
     event.target.innerText = "Hide Replies";
   } else {
-    event.target.parentNode.parentNode.parentNode.childNodes[5].classList.add("hide");
+    event.target.parentNode.parentNode.parentNode.childNodes[5].classList.add("hide2");
     event.target.innerText = "View Replies";
   }
 }
 
 // Show Create Reply
 function showCreateReply(event) {
-  if(event.target.parentNode.parentNode.parentNode.childNodes[3].classList.contains("hide")) {
-    event.target.parentNode.parentNode.parentNode.childNodes[3].classList.remove("hide");
+  if(event.target.parentNode.parentNode.parentNode.childNodes[3].classList.contains("hide2")) {
+    event.target.parentNode.parentNode.parentNode.childNodes[3].classList.remove("hide2");
   }
 }
 
 // Hide Create Reply
 function hideCreateReply(event) {
-  if(!event.target.parentNode.classList.contains("hide")) {
-    event.target.parentNode.classList.add("hide");
+  if(!event.target.parentNode.classList.contains("hide2")) {
+    event.target.parentNode.classList.add("hide2");
     event.target.parentNode.childNodes[1].childNodes[1].value = "";
   }
 }
@@ -199,7 +199,7 @@ function handleNewPostButton(event) {
   console.log('New Twit was clicked');
   var srcElement = document.getElementsByClassName('hide');
   for(var i = 0; i < srcElement.length; i++) {
-    scrElement[i].style.display = 'block';
+    srcElement[i].style.display = 'block';
   }
 }
 
