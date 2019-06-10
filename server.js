@@ -36,13 +36,16 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res, next) {
   var collection = db.collection('postData');
-  collection.findOne({ pageTitle: "Home" }, function(err, pageData) {
+  collection.find({}).sort({likes: 1}).toArray(function(err, pageData) {
     if (err) {
       res.status(500).send({
         error: "Error fetching people from DB"
       });
     } else {
-      res.status(200).render('homepage', pageData);
+      res.status(200).render('homepage', {
+        pageTitle: "Trending",
+        posts: pageData
+      });
     }
   });
 });
@@ -54,13 +57,16 @@ app.get('/Favicon.ico', function (req, res, next) {
 app.get('/:pageTitle', function (req, res, next) {
   var pageTitle = parsePageTitle(req.params.pageTitle);
   var collection = db.collection('postData');
-  collection.findOne({ pageTitle: pageTitle }, function(err, pageData) {
+  collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
     if (err) {
       res.status(500).send({
         error: "Error fetching page from DB"
       });
     } else {
-      res.status(200).render('homepage', pageData);
+      res.status(200).render('homepage', {
+        pageTitle: pageTitle,
+        posts: pageData
+      });
     }
   });
 });
@@ -74,34 +80,21 @@ app.post('/:pageTitle/addPost', function(req, res, next) {
     console.log("   - txt:", req.body.txt);
 
     var collection = db.collection('postData');
-    getNextPostId(pageTitle, function(nextPostId) {
+    getNextPostId("total", function(nextPostId) {
       if(nextPostId < 0) {
         res.status(500).send({
           error: "Error inserting post into DB"
         });
       } else {
         var post = {
+          pageTitle: pageTitle,
           postId: nextPostId,
           likes: 0,
           img: req.body.img,
           txt: req.body.txt,
           replies: []
         }
-
-        collection.updateOne(
-          { pageTitle: pageTitle },
-          { $push: { posts: post } },
-          function (err, result) {
-            if (err) {
-              res.status(500).send({
-                error: "Error inserting post into DB"
-              });
-            } else {
-              console.log("== Post successfully added");
-              res.status(200).send("Post successfully added");
-            }
-          }
-        )
+        collection.insertOne(post);
       }
     });
   } else {
@@ -124,15 +117,14 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
     };
 
     collection.updateOne(
-      { pageTitle: pageTitle , "posts.postId": Number(postId) },
-      { $push: { "posts.$.replies": reply } },
+      { postId: Number(postId) },
+      { $push: { replies: reply } },
       function (err, result) {
         if(err) {
           res.status(500).send({
             error: "Error inserting reply into DB"
           });
         } else {
-          console.log("== Reply successfully added");
           res.status(200).send("Reply successfully added");
         }
       }
@@ -147,8 +139,8 @@ app.post('/:pageTitle/:postId/addLike', function(req, res, next) {
   var postId = req.params.postId;
   var collection = db.collection('postData');
   collection.updateOne(
-    { pageTitle: pageTitle , "posts.postId": Number(postId) },
-    { $inc:{ "posts.$.likes":1 } },
+    { postId: Number(postId) },
+    { $inc:{ likes:1 } },
     function(err, result) {
       if(err) {
         res.satus(500).send({
@@ -156,10 +148,9 @@ app.post('/:pageTitle/:postId/addLike', function(req, res, next) {
         });
       } else {
         collection.findOne(
-          { pageTitle: pageTitle },
+          { postId: Number(postId) },
           function(err, data) {
-            var databaseLikes = String(data.posts[Number(postId)-1].likes)
-            res.status(200).send(databaseLikes);
+            res.status(200).send(String(data.likes));
           }
         );
       }
@@ -194,14 +185,15 @@ function getNextPostId(counterName, callback) {
   var collection = db.collection('counters');
   collection.updateOne(
     { _id: counterName },
-    { $inc:{ numPosts:1 } }
-  );
-
-  collection.findOne({ _id: counterName }, function(err, data) {
-    if (err) {
-      callback(-1);
-    } else {
-      callback(data.numPosts);
+    { $inc:{ numPosts:1 } },
+    function(err, data) {
+      collection.findOne({ _id: counterName }, function(err, data) {
+        if (err) {
+          callback(-1);
+        } else {
+          callback(data.numPosts);
+        }
+      });
     }
-  });
+  );
 }

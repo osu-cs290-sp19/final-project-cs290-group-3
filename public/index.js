@@ -110,6 +110,8 @@ function postEventListener(event) {
     hideCreateReply(event);
   } else if(event.target.classList.contains("create-reply-button")) {
     postReply(event);
+  } else if(event.target.classList.contains("like-button")) {
+    incPostLikes(event);
   }
 }
 
@@ -137,6 +139,26 @@ function hideCreateReply(event) {
     event.target.parentNode.classList.add("hide");
     event.target.parentNode.childNodes[1].childNodes[1].value = "";
   }
+}
+
+// Send request to increment like on a post
+function incPostLikes(event) {
+  var request = new XMLHttpRequest();
+  var pageTitle = document.getElementById('page-title').innerText;
+  var postId = event.target.parentNode.parentNode.getAttribute('postId');
+  var requestURL = '/' + pageTitle + '/' + postId + '/addLike';
+  request.open('POST', requestURL);
+  var previousTarget = event.target;
+  request.addEventListener('load', function (event) {
+    if (event.target.status !== 200) {
+      var message = event.target.response;
+      alert("Error incrementing likes in database: " + message);
+    } else {
+      previousTarget.childNodes[0].innerText = event.target.response;
+    }
+  });
+
+  request.send();
 }
 
 // Send reply data to the server
