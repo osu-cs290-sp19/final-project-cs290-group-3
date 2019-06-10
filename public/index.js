@@ -170,45 +170,46 @@ function postReply(event) {
   }
 }
 
-// New Post
-/*var addPost = document.getElementById('new-post-button');
+var newPostButton = document.getElementsByClassName('new-post-button');
+newPostButton[0].addEventListener('click', handleNewPostButton);
 
-addPost.addEventListener('click', handleNewPost);
-
-function handleNewPost() {
-  console.log('New post button was clicked');
-  var srcElement = document.getElementByClassName(hide);
+function handleNewPostButton(event) {
+  console.log('New Twit was clicked');
+  var srcElement = document.getElementsByClassName('hide');
   for(var i = 0; i < srcElement.length; i++) {
-    srcElement[i].style.dispaly = 'block';
+    scrElement[i].style.display = 'block';
   }
 }
 
-var button = document.getElementsByClassName('close-button');
+var closeButton = document.getElementsByClassName('close-button');
+closeButton[0].addEventListener('click', handleCloseButton);
 
-button[0].addEventListener('click', handlePostCloseButton);
-
-function handlePostCloseButton(event) {
-        console.log('close button was clicked');
-        srcele = document.getElementsByClassName(hide);
-        for(i = 0; i <srcele.length; i++){
-                srcele[i].style.display = 'none';
-        }
-        document.getElementById(input for photo ID).value = "";
-        document.getElementById('post-text').value = "";
+function handleCloseButton(event) {
+  console.log('close button was clicked');
+  srcElement = document.getElementsByClassName('hide');
+  for(i = 0; i < srcElement.length; i++) {
+    srcElement[i].style.display = 'none';
+  }
+  document.getElementById('post-text').value = "";
+  document.getElementById('picture-text').value = "";
 }
 
+var cancelButton = document.getElementsByClassName('cancel-button');
+cancelButton[0].addEventListener('click', handleCancelButton);
 
+function handleCancelButton(event){
+  console.log('cancel button was clicked');
+  srcElement = document.getElementsByClassName('hide');
+  for(i = 0; i < srcElement.length; i++){
+    srcElement[i].style.display = 'none';
+  }
+  document.getElementById('post-text').value = "";
+  document.getElementById('picture-text').value = "";
+}
 
-button = document.getElementsByClassName('cancel-button');
+var acceptButton = document.getElementsByClassName('accept-button');
+acceptButton[0].addEventListener('click', handleAcceptButton)
 
-button[0].addEventListener('click', handlePostCancelButton);
-
-function handlePostCancelButton(event) {
-        console.log('cancel button was clicked');
-        srcele = document.getElementsByClassName(hide);
-        for(i = 0; i <srcele.length; i++){
-                srcele[i].style.display = 'none';
-        }
-        document.getElementById(input for photo ID).value = "";
-        document.getElementById('post-text').value = "";
-}*/
+function handleAcceptButton(event) {
+  console.log('accept was clicked');
+}
