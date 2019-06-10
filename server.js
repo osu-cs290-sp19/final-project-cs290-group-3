@@ -67,25 +67,29 @@ app.get('/favicon.ico', function (req, res, next) {
 
 app.get('/:pageTitle', function (req, res, next) {
   var pageTitle = parsePageTitle(req.params.pageTitle);
-  var collection = db.collection('postData');
-  collection.aggregate([
-    {$match: {}},
-    {$group: {_id: "$pageTitle"} }
-  ]).toArray(function(err, pages) {
-    collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
-      if (err) {
-        res.status(500).send({
-          error: "Error fetching page from DB"
-        });
-      } else {
-        res.status(200).render('homepage', {
-          pageTitle: pageTitle,
-          pageNames: pages,
-          posts: pageData
-        });
-      }
+  if(!Number.isInteger(Number(pageTitle))) {    // only run if pageTitle is not a number
+    var collection = db.collection('postData');
+    collection.aggregate([                      // aggregate the pagetitles into an array to display them on the sidebar
+      {$match: {}},
+      {$group: {_id: "$pageTitle"} }
+    ]).toArray(function(err, pages) {
+      collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) { // find all posts with the matching pageTitle and send them to the client
+        if (err) {
+          res.status(500).send({
+            error: "Error fetching page from DB"
+          });
+        } else {
+          res.status(200).render('homepage', {
+            pageTitle: pageTitle,
+            pageNames: pages,
+            posts: pageData
+          });
+        }
+      });
     });
-  });
+  } else {
+    next();
+  }
 });
 
 app.post('/:pageTitle/addPost', function(req, res, next) {
