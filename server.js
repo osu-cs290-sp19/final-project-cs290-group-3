@@ -52,8 +52,7 @@ app.get('/Favicon.ico', function (req, res, next) {
 });
 
 app.get('/:pageTitle', function (req, res, next) {
-  var pageTitle = req.params.pageTitle;
-  pageTitle = parsePageTitle(pageTitle);
+  var pageTitle = parsePageTitle(req.params.pageTitle);
   var collection = db.collection('postData');
   collection.findOne({ pageTitle: pageTitle }, function(err, pageData) {
     if (err) {
@@ -68,8 +67,7 @@ app.get('/:pageTitle', function (req, res, next) {
 
 app.post('/:pageTitle/addPost', function(req, res, next) {
   if(req.body && req.body.img && req.body.txt) {
-    var pageTitle = req.params.pageTitle;
-    pageTitle = parsePageTitle(pageTitle);
+    var pageTitle = parsePageTitle(req.params.pageTitle);
     console.log("== Client added the following post:");
     console.log("   - pageTitle:", pageTitle);
     console.log("   - img url:", req.body.img);
@@ -97,11 +95,12 @@ app.post('/:pageTitle/addPost', function(req, res, next) {
               res.status(500).send({
                 error: "Error inserting post into DB"
               });
+            } else {
+              console.log("== Post successfully added");
+              res.status(200).send("Post successfully added");
             }
           }
         )
-
-        res.status(200).send("Post successfully added");
       }
     });
   } else {
@@ -114,8 +113,8 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
     var pageTitle = parsePageTitle(req.params.pageTitle);
     var postId = req.params.postId;
     console.log("== Client added the following reply:");
-    console.log("   - pageTitle:", req.params.pageTitle);
-    console.log("   - postId:", req.params.postId);
+    console.log("   - pageTitle:", pageTitle);
+    console.log("   - postId:", postId);
     console.log("   - text:", req.body.text);
 
     var collection = db.collection('postData');
@@ -124,27 +123,19 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
     };
 
     collection.updateOne(
-      { pageTitle: pageTitle , "posts.postId": postId },
-      { $push: { "posts.$.postId": reply } },
+      { pageTitle: pageTitle , "posts.postId": Number(postId)},
+      { $push: { "posts.$.replies": reply } },
       function (err, result) {
-        if (err) {
+        if(err) {
           res.status(500).send({
             error: "Error inserting reply into DB"
           });
         } else {
-          //console.log("== update result:", result);
-          console.log("== result.matchedCount:",result.matchedCount);
-          if (result.matchedCount > 0) {
-            console.log("== success");
-            res.status(200).send("Success");
-          } else {
-            next();
-          }
+          console.log("== Reply successfully added");
+          res.status(200).send("Reply successfully added");
         }
       }
     );
-
-    res.status(200).send("Reply successfully added");
   } else {
     res.status(400).send("Requests to this path must contain a JSON body with a text field.");
   }
