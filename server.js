@@ -36,17 +36,28 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res, next) {
   var collection = db.collection('postData');
-  collection.find({}).sort({likes: 1}).toArray(function(err, pageData) {
-    if (err) {
-      res.status(500).send({
-        error: "Error fetching people from DB"
-      });
-    } else {
-      res.status(200).render('homepage', {
-        pageTitle: "Trending",
-        posts: pageData
-      });
-    }
+  // =========================================
+  // testing
+  collection.aggregate([
+    {$match: {}},
+    {$group: {_id: "$pageTitle"} }
+  ]).toArray(function(err, pages) {
+    console.log(pages);
+
+  // =========================================
+    collection.find({}).sort({likes: 1}).toArray(function(err, pageData) {
+      if (err) {
+        res.status(500).send({
+          error: "Error fetching people from DB"
+        });
+      } else {
+        res.status(200).render('homepage', {
+          pageTitle: "Trending",
+          pageNames: pages,
+          posts: pageData
+        });
+      }
+    });
   });
 });
 
@@ -57,17 +68,24 @@ app.get('/Favicon.ico', function (req, res, next) {
 app.get('/:pageTitle', function (req, res, next) {
   var pageTitle = parsePageTitle(req.params.pageTitle);
   var collection = db.collection('postData');
-  collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
-    if (err) {
-      res.status(500).send({
-        error: "Error fetching page from DB"
-      });
-    } else {
-      res.status(200).render('homepage', {
-        pageTitle: pageTitle,
-        posts: pageData
-      });
-    }
+  collection.aggregate([
+    {$match: {}},
+    {$group: {_id: "$pageTitle"} }
+  ]).toArray(function(err, pages) {
+    console.log(pages);
+    collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
+      if (err) {
+        res.status(500).send({
+          error: "Error fetching page from DB"
+        });
+      } else {
+        res.status(200).render('homepage', {
+          pageTitle: pageTitle,
+          pageNames: pages,
+          posts: pageData
+        });
+      }
+    });
   });
 });
 
@@ -173,7 +191,8 @@ client.connect(function(err, client) {
 });
 
 function parsePageTitle(pageTitle) {
-  var pageTitle = pageTitle.replace("-", " ");
+  pageTitle = pageTitle.replace("-", " ");
+  pageTitle.replace("%20", " ");
   var splitStr = pageTitle.toLowerCase().split(' ');
   for (var i = 0; i < splitStr.length; i++) {
     splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);

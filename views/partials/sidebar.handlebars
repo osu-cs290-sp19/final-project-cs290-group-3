@@ -12,14 +12,12 @@
   <h2 class="side-nav-title">Boards</h2>
   <nav class="nav-container">
     <a href="/" class="side-link">Trending</a>
-    <a href="/general" class="side-link">General</a>
-    <a href="/natural-treasures" class="side-link">Natural Treasures</a>
-    <a href="/geo-caching" class="side-link">Geo Caching</a>
-    <a href="#" class="side-link">More Boards</a>
+    {{#each pageNames}}
+      {{> sidebarlink}}
+    {{/each}}
   </nav>
   <div class="side-button">
     <button type = "button" class = "new-post-button">New Post</button>
     <button type = "button" class = "settings-button">Settings</button>
-      <!-- made settings a button for the night mode toggle -->
   </div>
 </div>
