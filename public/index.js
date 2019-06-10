@@ -29,33 +29,67 @@ var day = true;
 nightmode.addEventListener('click', function(event) {
   var posties = document.getElementsByClassName('post'), i, len;
   var backgc = document.getElementsByTagName('body');
+  var replies = document.getElementsByClassName('reply-container');
+  var createrep = document.getElementsByClassName('create-reply');
+  var inputs = document.querySelectorAll('input[type=text]');
+  var buttons = document.getElementsByTagName('button');
 
-  for (i = 0, len = posties.length; i < len; i++) {   //changes the post border color and background color - works rn
+  for (i = 0, len = buttons.length; i < len; i++) {   //changes the button color
     if(day === true){
-      posties[i].style.border = '2px solid #04213E' //nightmode border color
-      posties[i].style.backgroundColor = '#05284A'  //nightmode bg color
+      buttons[i].style.backgroundColor = '#13110f'  //nightmode button
+      buttons[i].style.color = '#9f9791';
     } else {
-      posties[i].style.border = '2px solid #789BBD' //day border
-      posties[i].style.backgroundColor = '#C2C9DD'   //night bg
+      buttons[i].style.backgroundColor = ''   //day button
+      buttons[i].style.color = '';
     }
   };
-  for (i = 0, len = backgc.length; i < len; i++) {  //changes the main background color - works rn
+  for (i = 0, len = inputs.length; i < len; i++) {   //changes the input field color
     if(day === true){
-      backgc[i].style.backgroundColor = '#453E35'   //night main bg
-      backgc[i].style.color = 'white';
+      inputs[i].style.backgroundColor = '#13110f'  //nightmode input
     } else {
-      backgc[i].style.backgroundColor = '#FDEEDD'   //day main bg
-      backgc[i].style.color = 'black';
+      inputs[i].style.backgroundColor = ''   //day reply
+    }
+  };
+  for (i = 0, len = posties.length; i < len; i++) {   //changes the post border color and background color
+    if(day === true){
+      posties[i].style.border = '2px solid #453d34' //nightmode border color
+      posties[i].style.backgroundColor = '#13110f'  //nightmode bg color
+    } else {
+      posties[i].style.border = '' //day border
+      posties[i].style.backgroundColor = ''   //day bg
+    }
+  };
+  for (i = 0, len = backgc.length; i < len; i++) {  //changes the main background color
+    if(day === true){
+      backgc[i].style.backgroundColor = '#323147'   //night main bg
+      backgc[i].style.color = '#9f9791';            //night text
+    } else {
+      backgc[i].style.backgroundColor = ''   //day main bg
+      backgc[i].style.color = '';              //day text
+    }
+  };
+  for (i = 0, len = replies.length; i < len; i++) {   //changes the reply color
+    if(day === true){
+      replies[i].style.backgroundColor = '#13110f'  //nightmode reply
+    } else {
+      replies[i].style.backgroundColor = ''   //day reply
+    }
+  };
+  for (i = 0, len = createrep.length; i < len; i++) {   //changes the create reply.
+    if(day === true){
+      createrep[i].style.backgroundColor = '#13110f'  //nightmode create reply
+    } else {
+      createrep[i].style.backgroundColor = ''   //day
     }
   };
   if(day === true){
-    document.getElementById('sidebar').style.backgroundColor = '#432602'   //night sidebar
+    document.getElementById('sidebar').style.backgroundColor = '#13110f'   //night sidebar
   } else {
-    document.getElementById('sidebar').style.backgroundColor = '#F9BF77'}   //day side
+    document.getElementById('sidebar').style.backgroundColor = ''}   //day side
   if(day === true){
-    document.getElementById('sidebar-hide-button').style.backgroundColor = '#432602'  //night button
+    document.getElementById('sidebar-hide-button').style.backgroundColor = '#13110f'  //night button
   } else {
-    document.getElementById('sidebar-hide-button').style.backgroundColor = '#F9BF77'   //day button
+    document.getElementById('sidebar-hide-button').style.backgroundColor = ''   //day button
   }
 
   if(day === true){day = false;}else{day = true;};
@@ -76,8 +110,6 @@ function postEventListener(event) {
     hideCreateReply(event);
   } else if(event.target.classList.contains("create-reply-button")) {
     postReply(event);
-  } else if(event.target.classList.contains("like-button")) {
-    incPostLikes(event);
   }
 }
 
@@ -105,26 +137,6 @@ function hideCreateReply(event) {
     event.target.parentNode.classList.add("hide");
     event.target.parentNode.childNodes[1].childNodes[1].value = "";
   }
-}
-
-// Send request to increment like on a post
-function incPostLikes(event) {
-  var request = new XMLHttpRequest();
-  var pageTitle = document.getElementById('page-title').innerText;
-  var postId = event.target.parentNode.parentNode.getAttribute('postId');
-  var requestURL = '/' + pageTitle + '/' + postId + '/addLike';
-  request.open('POST', requestURL);
-  var previousTarget = event.target;
-  request.addEventListener('load', function (event) {
-    if (event.target.status !== 200) {
-      var message = event.target.response;
-      alert("Error incrementing likes in database: " + message);
-    } else {
-      previousTarget.childNodes[0].innerText = event.target.response;
-    }
-  });
-
-  request.send();
 }
 
 // Send reply data to the server
@@ -158,49 +170,45 @@ function postReply(event) {
   }
 }
 
-var newPostButton = document.getElementsByClassName('new-post-button');
-newPostButton[0].addEventListener('click', handleNewPostButton);
+// New Post
+/*var addPost = document.getElementById('new-post-button');
 
-function handleNewPostButton(event) {
-  console.log('New Twit was clicked');
-  var srcElement = document.getElementsByClassName('hide');
+addPost.addEventListener('click', handleNewPost);
+
+function handleNewPost() {
+  console.log('New post button was clicked');
+  var srcElement = document.getElementByClassName(hide);
   for(var i = 0; i < srcElement.length; i++) {
-    scrElement[i].style.display = 'block';
+    srcElement[i].style.dispaly = 'block';
   }
 }
 
-var closeButton = document.getElementsByClassName('close-button');
-closeButton[0].addEventListener('click', handleCloseButton);
+var button = document.getElementsByClassName('close-button');
 
-function handleCloseButton(event) {
-  console.log('close button was clicked');
-  srcElement = document.getElementsByClassName('hide');
-  for(i = 0; i < srcElement.length; i++) {
-    srcElement[i].style.display = 'none';
-  }
-  document.getElementById('post-text').value = "";
-  document.getElementById('picture-text').value = "";
+button[0].addEventListener('click', handlePostCloseButton);
+
+function handlePostCloseButton(event) {
+        console.log('close button was clicked');
+        srcele = document.getElementsByClassName(hide);
+        for(i = 0; i <srcele.length; i++){
+                srcele[i].style.display = 'none';
+        }
+        document.getElementById(input for photo ID).value = "";
+        document.getElementById('post-text').value = "";
 }
 
-var cancelButton = document.getElementsByClassName('cancel-button');
-cancelButton[0].addEventListener('click', handleCancelButton);
-
-function handleCancelButton(event){
-  console.log('cancel button was clicked');
-  srcElement = document.getElementsByClassName('hide');
-  for(i = 0; i < srcElement.length; i++){
-    srcElement[i].style.display = 'none';
-  }
-  document.getElementById('post-text').value = "";
-  document.getElementById('picture-text').value = "";
-}
-
-var acceptButton = document.getElementsByClassName('accept-button');
-acceptButton[0].addEventListener('click', handleAcceptButton)
-
-function handleAcceptButton(event) {
-  console.log('accept was clicked');
 
 
+button = document.getElementsByClassName('cancel-button');
 
-}
+button[0].addEventListener('click', handlePostCancelButton);
+
+function handlePostCancelButton(event) {
+        console.log('cancel button was clicked');
+        srcele = document.getElementsByClassName(hide);
+        for(i = 0; i <srcele.length; i++){
+                srcele[i].style.display = 'none';
+        }
+        document.getElementById(input for photo ID).value = "";
+        document.getElementById('post-text').value = "";
+}*/
