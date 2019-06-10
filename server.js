@@ -36,15 +36,10 @@ app.use(express.static('public'));
 
 app.get('/', function (req, res, next) {
   var collection = db.collection('postData');
-  // =========================================
-  // testing
   collection.aggregate([
     {$match: {}},
     {$group: {_id: "$pageTitle"} }
   ]).toArray(function(err, pages) {
-    console.log(pages);
-
-  // =========================================
     collection.find({}).sort({likes: 1}).toArray(function(err, pageData) {
       if (err) {
         res.status(500).send({
@@ -72,7 +67,6 @@ app.get('/:pageTitle', function (req, res, next) {
     {$match: {}},
     {$group: {_id: "$pageTitle"} }
   ]).toArray(function(err, pages) {
-    console.log(pages);
     collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) {
       if (err) {
         res.status(500).send({
