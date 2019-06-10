@@ -155,7 +155,13 @@ app.post('/:pageTitle/:postId/addLike', function(req, res, next) {
           error: "Error incrementing like"
         });
       } else {
-        res.status(200).send("Like successfully incremented")
+        collection.findOne(
+          { pageTitle: pageTitle },
+          function(err, data) {
+            var databaseLikes = String(data.posts[Number(postId)-1].likes)
+            res.status(200).send(databaseLikes);
+          }
+        );
       }
     }
   );

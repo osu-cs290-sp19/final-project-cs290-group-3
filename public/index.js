@@ -120,8 +120,7 @@ function incPostLikes(event) {
       var message = event.target.response;
       alert("Error incrementing likes in database: " + message);
     } else {
-      console.log(previousTarget.childNodes[0].innerText);
-      previousTarget.childNodes[0].innerText = Number(previousTarget.childNodes[0].innerText) + 1;
+      previousTarget.childNodes[0].innerText = event.target.response;
     }
   });
 
