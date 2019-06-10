@@ -1,4 +1,5 @@
 var path = require('path');
+var fs = require('fs');
 var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
@@ -29,6 +30,8 @@ var mongoDBName = "group3";//process.env.MONGO_DB_NAME;
 const mongoUrl = `mongodb+srv://${mongoUser}:${mongoPassword}@cs290-group3-ujs5i.mongodb.net/${mongoDBName}?retryWrites=true&w=majority`;
 var db = null;
 
+const favicon = fs.readFileSync(__dirname+'/public/photos/favicon.ico'); // read favicon
+
 app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.use(bodyParser.json());
@@ -56,8 +59,10 @@ app.get('/', function (req, res, next) {
   });
 });
 
-app.get('/Favicon.ico', function (req, res, next) {
-  res.status(204);
+app.get('/favicon.ico', function (req, res, next) {
+  res.status(200);
+  res.setHeader('Content-Type', 'image/x-icon');
+  res.end(favicon);
 });
 
 app.get('/:pageTitle', function (req, res, next) {
