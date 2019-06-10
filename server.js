@@ -82,6 +82,7 @@ app.post('/:pageTitle/addPost', function(req, res, next) {
       } else {
         var post = {
           postId: nextPostId,
+          likes: 0,
           img: req.body.img,
           txt: req.body.txt,
           replies: []
@@ -123,7 +124,7 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
     };
 
     collection.updateOne(
-      { pageTitle: pageTitle , "posts.postId": Number(postId)},
+      { pageTitle: pageTitle , "posts.postId": Number(postId) },
       { $push: { "posts.$.replies": reply } },
       function (err, result) {
         if(err) {
@@ -139,6 +140,25 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
   } else {
     res.status(400).send("Requests to this path must contain a JSON body with a text field.");
   }
+});
+
+app.post('/:pageTitle/:postId/addLike', function(req, res, next) {
+  var pageTitle = parsePageTitle(req.params.pageTitle);
+  var postId = req.params.postId;
+  var collection = db.collection('postData');
+  collection.updateOne(
+    { pageTitle: pageTitle , "posts.postId": Number(postId) },
+    { $inc:{ "posts.$.likes":1 } },
+    function(err, result) {
+      if(err) {
+        res.satus(500).send({
+          error: "Error incrementing like"
+        });
+      } else {
+        res.status(200).send("Like successfully incremented")
+      }
+    }
+  );
 });
 
 app.get('*', function (req, res) {
