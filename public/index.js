@@ -23,44 +23,6 @@ function toggleNav() {
   }
 }
 
-//nightmode
-var nightmode = document.getElementsByClassName('settings-button')[0];
-var day = true;
-nightmode.addEventListener('click', function(event) {
-  var posties = document.getElementsByClassName('post'), i, len;
-  var backgc = document.getElementsByTagName('body');
-
-  for (i = 0, len = posties.length; i < len; i++) {   //changes the post border color and background color - works rn
-    if(day === true){
-      posties[i].style.border = '2px solid #04213E' //nightmode border color
-      posties[i].style.backgroundColor = '#05284A'  //nightmode bg color
-    } else {
-      posties[i].style.border = '2px solid #789BBD' //day border
-      posties[i].style.backgroundColor = '#C2C9DD'   //night bg
-    }
-  };
-  for (i = 0, len = backgc.length; i < len; i++) {  //changes the main background color - works rn
-    if(day === true){
-      backgc[i].style.backgroundColor = '#453E35'   //night main bg
-      backgc[i].style.color = 'white';
-    } else {
-      backgc[i].style.backgroundColor = '#FDEEDD'   //day main bg
-      backgc[i].style.color = 'black';
-    }
-  };
-  if(day === true){
-    document.getElementById('sidebar').style.backgroundColor = '#432602'   //night sidebar
-  } else {
-    document.getElementById('sidebar').style.backgroundColor = '#F9BF77'}   //day side
-  if(day === true){
-    document.getElementById('sidebar-hide-button').style.backgroundColor = '#432602'  //night button
-  } else {
-    document.getElementById('sidebar-hide-button').style.backgroundColor = '#F9BF77'   //day button
-  }
-
-  if(day === true){day = false;}else{day = true;};
-});
-
 // Add event listener to all posts and pass clicked element to postEventListener function
 var postElements = document.getElementsByClassName("post-and-replies");
 for(var i = 0; i < postElements.length; i++) {
@@ -137,7 +99,7 @@ function postReply(event) {
 }
 
 var newPostButton = document.getElementById('new-post-button');
-newPostButton.addEventListener('click', handleNewPostButton);
+newPostButton[0].addEventListener('click', handleNewPostButton);
 
 function handleNewPostButton(event) {
   console.log('New Twit was clicked');
@@ -153,7 +115,7 @@ closeButton[0].addEventListener('click', handleCloseButton);
 function handleCloseButton(event) {
   console.log('close button was clicked');
   srcElement = document.getElementsByClassName('hide');
-  for(i = 0; i < srcElement.length; i++){
+  for(i = 0, i < srcElement.length; i++) {
     srcElement[i].style.display = 'none';
   }
   document.getElementById('post-text').value = "";
@@ -174,7 +136,7 @@ function handleCancelButton(event){
 }
 
 var acceptButton = document.getElementsByClassName('accept-button');
-acceptButton.addEventListener('click', handleAcceptButton)
+acceptButton[0].addEventListener('click', handleAcceptButton)
 
 function handleAcceptButton(event) {
   console.log('accept was clicked');
