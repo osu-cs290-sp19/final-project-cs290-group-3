@@ -30,7 +30,7 @@ var mongoDBName = "group3";//process.env.MONGO_DB_NAME;
 const mongoUrl = `mongodb+srv://${mongoUser}:${mongoPassword}@cs290-group3-ujs5i.mongodb.net/${mongoDBName}?retryWrites=true&w=majority`;
 var db = null;
 
-const favicon = fs.readFileSync(__dirname+'/public/photos/favicon.ico'); // read favicon
+const favicon = fs.readFileSync(__dirname+'/public/photos/treasr-logo.ico'); // read favicon
 
 app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
