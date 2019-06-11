@@ -113,6 +113,8 @@ function postEventListener(event) {
     incPostLikes(event);
   } else if(event.target.classList.contains("thread-button")) {
     threadView(event);
+  } else if(event.target.classList.contains("report-button")){
+    report(event);
   }
 }
 
@@ -211,6 +213,14 @@ function postReply(event) {
   }
 }
 
+
+//report button
+function report(event) {
+  event.target.parentNode.parentNode.style.display = "none";
+  alert("This post has been sent to moderators.");
+}
+
+
 var newPostButton = document.getElementsByClassName('new-post-button');
 newPostButton[0].addEventListener('click', handleNewPostButton);
 
@@ -254,3 +264,19 @@ acceptButton[0].addEventListener('click', handleAcceptButton)
 function handleAcceptButton(event) {
   console.log('accept was clicked');
 }
+
+//search bar
+var search = document.getElementById('search-button');
+search.addEventListener('click', function(event){
+  var searchbar = document.getElementById('search-input').value;
+  var input = document.getElementsByClassName('post-and-replies');
+  console.log(searchbar);
+  for(var i = 0; i < postElements.length; i++){
+    console.log(input[i].innerText);
+    if(!input[i].innerText.includes(searchbar))
+      input[i].style.display = "none";
+    else {
+      input[i].style.display = "";
+    }
+  }
+})
