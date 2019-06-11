@@ -135,7 +135,7 @@ app.get('/search/:searchTerm', function (req, res, next) {
           error: "Error fetching page from DB"
         });
       } else if(pageData.length <= 0) {
-        res.status(200).render('homepage', {
+        res.status(204).render('homepage', {
           pageTitle: "Couldn't find "+searchTerm,
           pageNames: pages
         });
@@ -144,6 +144,45 @@ app.get('/search/:searchTerm', function (req, res, next) {
         console.log(pageData);
         res.status(200).render('homepage', {
           pageTitle: "Searching for "+searchTerm,
+          pageNames: pages,
+          posts: pageData
+        });
+      }
+    });
+  });
+});
+
+app.get('/admin/:adminpass', function (req, res, next) {
+  var adminPassword = process.env.ADMIN_PASSWORD;
+  var collection = db.collection('postData');
+  collection.aggregate([// aggregate the pagetitles into an array to display them on the sidebar
+    {$match: {}},
+    {$group: {_id: "$pageTitle"} }
+  ]).toArray(function(err, pages) {
+    collection.find({ reported: true }).toArray(function(err, pageData) { // find post with the matching postId and send it to the client
+      if (err) {
+        res.status(500).send({
+          error: "Error fetching page from DB"
+        });
+      } else if(adminPassword == undefined) {
+        res.status(400).render('homepage', {
+          pageTitle: "No admin password on server",
+          pageNames: pages
+        });
+      } else if(adminPassword !== req.params.adminpass) {
+        res.status(400).render('homepage', {
+          pageTitle: "Invalid admin password",
+          pageNames: pages
+        });
+      } else if(pageData.length <= 0) {
+        res.status(200).render('homepage', {
+          pageTitle: "There are no reported posts",
+          pageNames: pages
+        });
+      } else {
+        console.log(pageData);
+        res.status(200).render('homepage', {
+          pageTitle: "Reported Posts",
           pageNames: pages,
           posts: pageData
         });
