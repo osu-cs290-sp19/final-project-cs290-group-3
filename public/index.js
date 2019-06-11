@@ -170,6 +170,17 @@ function threadView(event) {
   window.location.href = requestURL;
 }
 
+// Enable replies and create reply by default on thread view
+var splitURL = window.location.href.split("/");
+var endOfURL = splitURL[splitURL.length-1];
+if(Number.isInteger(Number(endOfURL))) {
+  var replyContainer = document.getElementsByClassName('reply-container')[0];
+  replyContainer.classList.remove("hide2");
+  replyContainer.parentNode.childNodes[1].childNodes[9].childNodes[5].innerText = "Hide Replies";
+  var createReply = document.getElementsByClassName('create-reply')[0];
+  createReply.classList.remove("hide2");
+}
+
 // Send reply data to the server
 function postReply(event) {
   if (event.target.parentNode.childNodes[1].childNodes[1].value) {
