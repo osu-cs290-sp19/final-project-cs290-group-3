@@ -78,6 +78,8 @@ app.get('/:pageTitle', function (req, res, next) {
           res.status(500).send({
             error: "Error fetching page from DB"
           });
+        } else if(pageData.length <= 0) {
+          next();
         } else {
           res.status(200).render('homepage', {
             pageTitle: pageTitle,
@@ -93,23 +95,22 @@ app.get('/:pageTitle', function (req, res, next) {
 });
 
 app.get('/:postIds', function (req, res, next) {
-  //var pageTitle = parsePageTitle(req.params.pageTitle);
-  var postId = parsePageTitle(req.params.postIds);
-  if(Number.isInteger(Number(postId))) {    // only run if pageTitle is a number
+  var postId = req.params.postIds;
+  if(Number.isInteger(Number(postId))) {    // only run if postId is a number
     var collection = db.collection('postData');
     collection.aggregate([                      // aggregate the pagetitles into an array to display them on the sidebar
       {$match: {}},
       {$group: {_id: "$pageTitle"} }
     ]).toArray(function(err, pages) {
       console.log('postId == ', postId);
-      collection.find({ postId: Number(postId) }).toArray(function(err, pageData) { // find all posts with the matching pageTitle and send them to the client
+      collection.find({ postId: Number(postId) }).toArray(function(err, pageData) { // find post with the matching postId and send it to the client
         if (err) {
           res.status(500).send({
             error: "Error fetching page from DB"
           });
         } else if(pageData.length <= 0) {
           console.log ("Couldn't find post with postId ", postId);
-            next();
+          next();
         }
         else {
           res.status(200).render('homepage', {
@@ -117,7 +118,6 @@ app.get('/:postIds', function (req, res, next) {
             pageNames: pages,
             posts: pageData
           });
-          
         }
       });
     });
@@ -214,7 +214,15 @@ app.post('/:pageTitle/:postId/addLike', function(req, res, next) {
 });
 
 app.get('*', function (req, res) {
-  res.status(404).render('404');
+  var collection = db.collection('postData');
+  collection.aggregate([                      // aggregate the pagetitles into an array to display them on the sidebar
+    {$match: {}},
+    {$group: {_id: "$pageTitle"} }
+  ]).toArray(function(err, pages) {
+    res.status(404).render('404', {
+      pageNames: pages
+    });
+  });
 });
 
 const client = new MongoClient(mongoUrl, { useNewUrlParser: true });
