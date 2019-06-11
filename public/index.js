@@ -243,6 +243,7 @@ function handleCloseButton(event) {
   }
   document.getElementById('post-text').value = "";
   document.getElementById('picture-text').value = "";
+  document.getElementById('topic-text').value = "";
 }
 
 var cancelButton = document.getElementsByClassName('cancel-button');
@@ -256,6 +257,7 @@ function handleCancelButton(event){
   }
   document.getElementById('post-text').value = "";
   document.getElementById('picture-text').value = "";
+  document.getElementById('topic-text').value = "";
 }
 
 var acceptButton = document.getElementsByClassName('accept-button');
@@ -263,6 +265,11 @@ acceptButton[0].addEventListener('click', handleAcceptButton)
 
 function handleAcceptButton(event) {
   console.log('accept was clicked');
+
+
+  document.getElementById('post-text').value = "";
+  document.getElementById('picture-text').value = "";
+  document.getElementById('topic-text').value = "";
 }
 
 //search bar

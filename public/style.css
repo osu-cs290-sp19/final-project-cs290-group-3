@@ -94,7 +94,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 #search-button {
     border-radius: 5px;
-    border: 1px solid black;
+    border: 1px solid #789BBD;
     padding: 5px;
     cursor: pointer;
 }
@@ -328,8 +328,9 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   min-width: 350px;
   min-height: 300px;
   margin: 40px auto;
-  background-color: #fff;
+  background-color: var(--mainBackgroundColor);
   border-radius: 5px;
+  border: 2px solid #789BBD;
 }
 
 .modal-header {
@@ -338,6 +339,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 
 .modal-header h3 {
+  text-align: center;
   margin: 0;
   flex: center;
   font-size: 24px;
@@ -348,7 +350,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   right: 10px;
   top: 5px;
   font-size: 20px;
-  border: 2px solid #789BBD;
+  border: 1px solid #789BBD;
   border-radius: 5px;
   background-color: #fff;
   padding: 2px 4px;
@@ -374,22 +376,26 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   font-size: 20px;
   flex: 1 75px;
   margin-right: 10px;
+  max-width: 125px;
 }
 
-.input-element input, {
-  flex: 6 200px;
-  padding: 8px;
-  font-size: 16px;
-  border: 2px solid #aaa;
-  border-radius: 5px;
-}
 
-.input-element textarea {
+#picture-text, #post-text {
   min-height: 64px;
   flex: 6 200px;
   padding: 8px;
   font-size: 16px;
-  border: 2px solid #aaa;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+#topic-text {
+  min-width: 20px;
+  max-height: 20px;
+  margin: 0;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid grey;
   border-radius: 5px;
 }
 
@@ -403,7 +409,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   font-size: 16px;
   background-color: #fff;
   color: #333;
-  border: 2px solid #789BBD;
+  border: 1px solid #789BBD;
   border-radius: 5px;
   padding: 5px;
   margin-left: 20px;
@@ -426,20 +432,21 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 .reply-container, .create-reply {
   position: relative;
   width: 100%;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border-left: 2px solid #789BBD;
+  border-right: 2px solid #789BBD;
   background-color: var(--postBackgroundColor);
   margin: 0 0 0 auto;
+  border-radius: 5px;
 }
 
 .reply {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #789BBD;
   padding: 10px;
 }
 
 .create-reply {
   position: relative;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid #789BBD;
   display: block;
 }
 .create-reply div {
@@ -448,11 +455,21 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 .create-reply textarea {
   width: 99.3%;
+  border-radius: 5px;
+  border: 1px solid grey;
 }
 .create-reply-button, .cancel-reply-button {
   position: relative;
   left: 10px;
   bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #789BBD;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.create-reply-button:hover, .cancel-reply-button:hover {
+  background-color: #FDEEDD;
 }
 
 .hide, .hide2 {
