@@ -190,7 +190,6 @@ function incPostLikes(event) {
 function threadView(event) {
   var postId = event.target.parentNode.parentNode.getAttribute('postId');
   var requestURL = '/thread/' + postId;
-  console.log( "Thread view requestURL:", requestURL );
   window.location.href = requestURL;
 }
 
@@ -295,17 +294,25 @@ function handleAcceptButton(event) {
 }
 
 //search bar
-var search = document.getElementById('search-button');
-search.addEventListener('click', function(event){
-  var searchbar = document.getElementById('search-input').value;
+var searchInput = document.getElementById('search-input');
+searchInput.addEventListener('keyup', function(event) {
+  var searchbar = searchInput.value;
   var input = document.getElementsByClassName('post-and-replies');
-  console.log(searchbar);
+  console.log("Searchbar Value:", searchbar);
   for(var i = 0; i < postElements.length; i++){
-    console.log(input[i].innerText);
+    //console.log(input[i].innerText);
     if(!input[i].innerText.includes(searchbar))
       input[i].style.display = "none";
     else {
       input[i].style.display = "";
     }
   }
-})
+});
+
+//database search
+var search = document.getElementById('search-button');
+search.addEventListener('click', function(event) {
+  var searchTerm = searchInput.value;
+  var requestURL = '/search/' + searchTerm;
+  window.location.href = requestURL;
+});

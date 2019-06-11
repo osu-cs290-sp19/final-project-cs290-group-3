@@ -129,7 +129,7 @@ app.get('/search/:searchTerm', function (req, res, next) {
     {$match: {}},
     {$group: {_id: "$pageTitle"} }
   ]).toArray(function(err, pages) {
-    collection.find({ txt: {$regex: regex, $options: 'i'}}).toArray(function(err, pageData) { // find post with the matching postId and send it to the client
+    collection.find({ $or: [{ txt: {$regex: regex, $options: 'i'} }, { replies: { $elemMatch: {text: {$regex: regex, $options: 'i' } } } } ]}).toArray(function(err, pageData) { // find post with the matching postId and send it to the client
       if (err) {
         res.status(500).send({
           error: "Error fetching page from DB"
@@ -141,6 +141,7 @@ app.get('/search/:searchTerm', function (req, res, next) {
         });
       }
       else {
+        console.log(pageData);
         res.status(200).render('homepage', {
           pageTitle: "Searching for "+searchTerm,
           pageNames: pages,
