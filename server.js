@@ -171,6 +171,7 @@ app.post('/:pageTitle/addPost', function(req, res, next) {
           pageTitle: pageTitle,
           postId: nextPostId,
           likes: 0,
+          reported: false,
           img: req.body.img,
           txt: req.body.txt,
           replies: []
