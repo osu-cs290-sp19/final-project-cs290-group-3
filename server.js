@@ -67,38 +67,34 @@ app.get('/favicon.ico', function (req, res, next) {
 
 app.get('/:pageTitle', function (req, res, next) {
   var pageTitle = parsePageTitle(req.params.pageTitle);
-  if(!Number.isInteger(Number(pageTitle))) {    // only run if pageTitle is not a number
-    var collection = db.collection('postData');
-    collection.aggregate([                      // aggregate the pagetitles into an array to display them on the sidebar
-      {$match: {}},
-      {$group: {_id: "$pageTitle"} }
-    ]).toArray(function(err, pages) {
-      collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) { // find all posts with the matching pageTitle and send them to the client
-        if (err) {
-          res.status(500).send({
-            error: "Error fetching page from DB"
-          });
-        } else if(pageData.length <= 0) {
-          next();
-        } else {
-          res.status(200).render('homepage', {
-            pageTitle: pageTitle,
-            pageNames: pages,
-            posts: pageData
-          });
-        }
-      });
+  var collection = db.collection('postData');
+  collection.aggregate([// aggregate the pagetitles into an array to display them on the sidebar
+    {$match: {}},
+    {$group: {_id: "$pageTitle"} }
+  ]).toArray(function(err, pages) {
+    collection.find({ pageTitle: pageTitle }).toArray(function(err, pageData) { // find all posts with the matching pageTitle and send them to the client
+      if (err) {
+        res.status(500).send({
+          error: "Error fetching page from DB"
+        });
+      } else if(pageData.length <= 0) {
+        next();
+      } else {
+        res.status(200).render('homepage', {
+          pageTitle: pageTitle,
+          pageNames: pages,
+          posts: pageData
+        });
+      }
     });
-  } else {
-    next();
-  }
+  });
 });
 
-app.get('/:postIds', function (req, res, next) {
+app.get('/thread/:postIds', function (req, res, next) {
   var postId = req.params.postIds;
-  if(Number.isInteger(Number(postId))) {    // only run if postId is a number
-    var collection = db.collection('postData');
-    collection.aggregate([                      // aggregate the pagetitles into an array to display them on the sidebar
+  var collection = db.collection('postData');
+  if(Number.isInteger(Number(postId))) {
+    collection.aggregate([// aggregate the pagetitles into an array to display them on the sidebar
       {$match: {}},
       {$group: {_id: "$pageTitle"} }
     ]).toArray(function(err, pages) {
@@ -123,6 +119,36 @@ app.get('/:postIds', function (req, res, next) {
   } else {
     next();
   }
+});
+
+app.get('/search/:searchTerm', function (req, res, next) {
+  var searchTerm = req.params.searchTerm;
+  var regex = new RegExp(searchTerm);
+  var collection = db.collection('postData');
+  collection.aggregate([// aggregate the pagetitles into an array to display them on the sidebar
+    {$match: {}},
+    {$group: {_id: "$pageTitle"} }
+  ]).toArray(function(err, pages) {
+    collection.find({ txt: {$regex: regex, $options: 'i'}}).toArray(function(err, pageData) { // find post with the matching postId and send it to the client
+      if (err) {
+        res.status(500).send({
+          error: "Error fetching page from DB"
+        });
+      } else if(pageData.length <= 0) {
+        res.status(200).render('homepage', {
+          pageTitle: "Couldn't find "+searchTerm,
+          pageNames: pages
+        });
+      }
+      else {
+        res.status(200).render('homepage', {
+          pageTitle: "Searching for "+searchTerm,
+          pageNames: pages,
+          posts: pageData
+        });
+      }
+    });
+  });
 });
 
 app.post('/:pageTitle/addPost', function(req, res, next) {
