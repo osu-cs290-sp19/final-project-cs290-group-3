@@ -145,9 +145,8 @@ function hideCreateReply(event) {
 // Send request to increment like on a post
 function incPostLikes(event) {
   var request = new XMLHttpRequest();
-  var pageTitle = document.getElementById('page-title').innerText;
   var postId = event.target.parentNode.parentNode.getAttribute('postId');
-  var requestURL = '/' + pageTitle + '/' + postId + '/addLike';
+  var requestURL = '/' + postId + '/addLike';
   request.open('POST', requestURL);
   var previousTarget = event.target;
   request.addEventListener('load', function (event) {
@@ -164,11 +163,10 @@ function incPostLikes(event) {
 
 // sends to the thread View
 function threadView(event) {
-  var request = new XMLHttpRequest();
   var pageTitle = document.getElementById('page-title').innerText;
   var postId = event.target.parentNode.parentNode.getAttribute('postId');
   var requestURL = '/' + postId;
-  console.log( requestURL );
+  console.log( "Thread view requestURL:", requestURL );
   window.location.href = requestURL;
 }
 
@@ -176,10 +174,9 @@ function threadView(event) {
 function postReply(event) {
   if (event.target.parentNode.childNodes[1].childNodes[1].value) {
     var request = new XMLHttpRequest();
-    var pageTitle = document.getElementById('page-title').innerText;
     var postId = event.target.parentNode.parentNode.childNodes[1].getAttribute('postId');
 
-    var requestURL = '/' + pageTitle + '/' + postId + '/addReply';
+    var requestURL = '/' + postId + '/addReply';
     request.open('POST', requestURL);
     var replyObj = {
       "text": event.target.parentNode.childNodes[1].childNodes[1].value
@@ -194,8 +191,8 @@ function postReply(event) {
         var message = event.target.response;
         alert("Error storing reply in database: " + message);
       } else {
-        previousTarget.parentNode.childNodes[1].childNodes[1].value = "";
         // Update UI to show that the reply was successfully stored.
+        previousTarget.parentNode.childNodes[1].childNodes[1].value = "";
       }
     });
 

@@ -102,7 +102,6 @@ app.get('/:postIds', function (req, res, next) {
       {$match: {}},
       {$group: {_id: "$pageTitle"} }
     ]).toArray(function(err, pages) {
-      console.log('postId == ', postId);
       collection.find({ postId: Number(postId) }).toArray(function(err, pageData) { // find post with the matching postId and send it to the client
         if (err) {
           res.status(500).send({
@@ -157,12 +156,10 @@ app.post('/:pageTitle/addPost', function(req, res, next) {
   }
 });
 
-app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
+app.post('/:postId/addReply', function(req, res, next) {
   if(req.body && req.body.text) {
-    var pageTitle = parsePageTitle(req.params.pageTitle);
     var postId = req.params.postId;
     console.log("== Client added the following reply:");
-    console.log("   - pageTitle:", pageTitle);
     console.log("   - postId:", postId);
     console.log("   - text:", req.body.text);
 
@@ -189,8 +186,7 @@ app.post('/:pageTitle/:postId/addReply', function(req, res, next) {
   }
 });
 
-app.post('/:pageTitle/:postId/addLike', function(req, res, next) {
-  var pageTitle = parsePageTitle(req.params.pageTitle);
+app.post('/:postId/addLike', function(req, res, next) {
   var postId = req.params.postId;
   var collection = db.collection('postData');
   collection.updateOne(
