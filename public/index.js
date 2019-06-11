@@ -46,20 +46,30 @@ function setNightMode() {
   var inputs = document.querySelectorAll('input[type=text]');
   var buttons = document.getElementsByTagName('button');
 
-  for (i = 0, len = buttons.length; i < len; i++) {   //changes the button color
-    if(day === 'true'){
-      buttons[i].style.backgroundColor = '#13110f'  //nightmode button
-      buttons[i].style.color = '#9f9791';
-    } else {
-      buttons[i].style.backgroundColor = ''   //day button
-      buttons[i].style.color = '';
-    }
-  };
+  var root = document.documentElement;
+
+  if(day === 'true'){
+    root.style.setProperty('--mainBackgroundColor', '#323147');
+    root.style.setProperty('--sideBarBackgroundColor', '#13110f');
+    root.style.setProperty('--sideBarBorderColor', '#453d34');
+    root.style.setProperty('--postBackgroundColor', '#13110f');
+    root.style.setProperty('--postBorderColor', '#453d34');
+    root.style.setProperty('--textColor', '#9f9791');
+  } else {
+    root.style.setProperty('--mainBackgroundColor', '');
+    root.style.setProperty('--sideBarBackgroundColor', '');
+    root.style.setProperty('--sideBarBorderColor', '');
+    root.style.setProperty('--postBackgroundColor', '');
+    root.style.setProperty('--postBorderColor', '');
+    root.style.setProperty('--textColor', '');
+  }
   for (i = 0, len = inputs.length; i < len; i++) {   //changes the input field color
     if(day === 'true'){
       inputs[i].style.backgroundColor = '#13110f'  //nightmode input
+      inputs[i].style.color = '#9f9791';
     } else {
       inputs[i].style.backgroundColor = ''   //day reply
+      inputs[i].style.color = '';
     }
   };
   for (i = 0, len = posties.length; i < len; i++) {   //changes the post border color and background color
@@ -82,8 +92,10 @@ function setNightMode() {
   };
   for (i = 0, len = replies.length; i < len; i++) {   //changes the reply color
     if(day === 'true'){
+      replies[i].style.border = '2px solid #453d34' //nightmode border color
       replies[i].style.backgroundColor = '#13110f'  //nightmode reply
     } else {
+      replies[i].style.border = ''   //day border
       replies[i].style.backgroundColor = ''   //day reply
     }
   };
