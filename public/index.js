@@ -25,8 +25,20 @@ function toggleNav() {
 
 //nightmode
 var nightmode = document.getElementsByClassName('settings-button')[0];
-var day = true;
+var day = localStorage['day'] || 'true';
+setNightMode();
 nightmode.addEventListener('click', function(event) {
+  if(day === 'true'){
+    day = 'false';
+    localStorage['day']='false';
+  }else{
+    day = 'true';
+    localStorage['day']='true';
+  };
+  setNightMode();
+});
+
+function setNightMode() {
   var posties = document.getElementsByClassName('post'), i, len;
   var backgc = document.getElementsByTagName('body');
   var replies = document.getElementsByClassName('reply-container');
@@ -35,7 +47,7 @@ nightmode.addEventListener('click', function(event) {
   var buttons = document.getElementsByTagName('button');
 
   for (i = 0, len = buttons.length; i < len; i++) {   //changes the button color
-    if(day === true){
+    if(day === 'true'){
       buttons[i].style.backgroundColor = '#13110f'  //nightmode button
       buttons[i].style.color = '#9f9791';
     } else {
@@ -44,14 +56,14 @@ nightmode.addEventListener('click', function(event) {
     }
   };
   for (i = 0, len = inputs.length; i < len; i++) {   //changes the input field color
-    if(day === true){
+    if(day === 'true'){
       inputs[i].style.backgroundColor = '#13110f'  //nightmode input
     } else {
       inputs[i].style.backgroundColor = ''   //day reply
     }
   };
   for (i = 0, len = posties.length; i < len; i++) {   //changes the post border color and background color
-    if(day === true){
+    if(day === 'true'){
       posties[i].style.border = '2px solid #453d34' //nightmode border color
       posties[i].style.backgroundColor = '#13110f'  //nightmode bg color
     } else {
@@ -60,7 +72,7 @@ nightmode.addEventListener('click', function(event) {
     }
   };
   for (i = 0, len = backgc.length; i < len; i++) {  //changes the main background color
-    if(day === true){
+    if(day === 'true'){
       backgc[i].style.backgroundColor = '#323147'   //night main bg
       backgc[i].style.color = '#9f9791';            //night text
     } else {
@@ -69,30 +81,29 @@ nightmode.addEventListener('click', function(event) {
     }
   };
   for (i = 0, len = replies.length; i < len; i++) {   //changes the reply color
-    if(day === true){
+    if(day === 'true'){
       replies[i].style.backgroundColor = '#13110f'  //nightmode reply
     } else {
       replies[i].style.backgroundColor = ''   //day reply
     }
   };
   for (i = 0, len = createrep.length; i < len; i++) {   //changes the create reply.
-    if(day === true){
+    if(day === 'true'){
       createrep[i].style.backgroundColor = '#13110f'  //nightmode create reply
     } else {
       createrep[i].style.backgroundColor = ''   //day
     }
   };
-  if(day === true){
+  if(day === 'true'){
     document.getElementById('sidebar').style.backgroundColor = '#13110f'   //night sidebar
   } else {
     document.getElementById('sidebar').style.backgroundColor = ''}   //day side
-  if(day === true){
+  if(day === 'true'){
     document.getElementById('sidebar-hide-button').style.backgroundColor = '#13110f'  //night button
   } else {
     document.getElementById('sidebar-hide-button').style.backgroundColor = ''   //day button
   }
-  if(day === true){day = false;}else{day = true;};
-});
+}
 
 // Add event listener to all posts and pass clicked element to postEventListener function
 var postElements = document.getElementsByClassName("post-and-replies");
@@ -165,17 +176,16 @@ function incPostLikes(event) {
 
 // sends to the thread View
 function threadView(event) {
-  var pageTitle = document.getElementById('page-title').innerText;
   var postId = event.target.parentNode.parentNode.getAttribute('postId');
-  var requestURL = '/' + postId;
+  var requestURL = '/thread/' + postId;
   console.log( "Thread view requestURL:", requestURL );
   window.location.href = requestURL;
 }
 
 // Enable replies and create reply by default on thread view
 var splitURL = window.location.href.split("/");
-var endOfURL = splitURL[splitURL.length-1];
-if(Number.isInteger(Number(endOfURL))) {
+var endOfURL = splitURL[splitURL.length-2];
+if(endOfURL === 'thread') {
   var replyContainer = document.getElementsByClassName('reply-container')[0];
   replyContainer.classList.remove("hide2");
   replyContainer.parentNode.childNodes[1].childNodes[9].childNodes[5].innerText = "Hide Replies";
