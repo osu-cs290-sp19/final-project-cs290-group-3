@@ -91,7 +91,6 @@ nightmode.addEventListener('click', function(event) {
   } else {
     document.getElementById('sidebar-hide-button').style.backgroundColor = ''   //day button
   }
-
   if(day === true){day = false;}else{day = true;};
 });
 
@@ -112,6 +111,8 @@ function postEventListener(event) {
     postReply(event);
   } else if(event.target.classList.contains("like-button")) {
     incPostLikes(event);
+  } else if(event.target.classList.contains("thread-button")) {
+    threadView(event);
   }
 }
 
@@ -159,6 +160,16 @@ function incPostLikes(event) {
   });
 
   request.send();
+}
+
+// sends to the thread View
+function threadView(event) {
+  var request = new XMLHttpRequest();
+  var pageTitle = document.getElementById('page-title').innerText;
+  var postId = event.target.parentNode.parentNode.getAttribute('postId');
+  var requestURL = '/' + postId;
+  console.log( requestURL );
+  window.location.href = requestURL;
 }
 
 // Send reply data to the server

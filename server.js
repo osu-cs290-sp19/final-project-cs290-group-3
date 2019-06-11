@@ -92,6 +92,40 @@ app.get('/:pageTitle', function (req, res, next) {
   }
 });
 
+app.get('/:postIds', function (req, res, next) {
+  //var pageTitle = parsePageTitle(req.params.pageTitle);
+  var postId = parsePageTitle(req.params.postIds);
+  if(Number.isInteger(Number(postId))) {    // only run if pageTitle is a number
+    var collection = db.collection('postData');
+    collection.aggregate([                      // aggregate the pagetitles into an array to display them on the sidebar
+      {$match: {}},
+      {$group: {_id: "$pageTitle"} }
+    ]).toArray(function(err, pages) {
+      console.log('postId == ', postId);
+      collection.find({ postId: Number(postId) }).toArray(function(err, pageData) { // find all posts with the matching pageTitle and send them to the client
+        if (err) {
+          res.status(500).send({
+            error: "Error fetching page from DB"
+          });
+        } else if(pageData.length <= 0) {
+          console.log ("Couldn't find post with postId ", postId);
+            next();
+        }
+        else {
+          res.status(200).render('homepage', {
+            pageTitle: "Viewing Thread #"+postId,
+            pageNames: pages,
+            posts: pageData
+          });
+          
+        }
+      });
+    });
+  } else {
+    next();
+  }
+});
+
 app.post('/:pageTitle/addPost', function(req, res, next) {
   if(req.body && req.body.img && req.body.txt) {
     var pageTitle = parsePageTitle(req.params.pageTitle);
