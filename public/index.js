@@ -286,33 +286,50 @@ acceptButton[0].addEventListener('click', handleAcceptButton)
 
 function handleAcceptButton(event) {
   console.log('accept was clicked');
+  if (document.getElementById("topic-text").value && document.getElementById("picture-text").value && document.getElementById("post-text").value) {
+    request = new XMLHttpRequest();
+    var pagetitle = document.getElementById("topic-text").value;
 
-
+    requestURL = '/' + pagetitle + '/addPost';
+    request.open('POST', requestURL);
+    var postObj = {
+      "img": document.getElementById("picture-text").value,
+      "txt": document.getElementById("post-text").value
+    };
+    requestBody = JSON.stringify(postObj);
+    request.setRequestHeader (
+      'Content-Type', 'application/json'
+    );
+    previousTarget = event.target;
+    request.addEventListener('load', function (event) {
+      if (event.target.status !== 200) {
+        message = event.target.response;
+        alert("Error storing in database: " + message);
+      }
+    });
+    request.send(requestBody);
+  }
+  srcElement = document.getElementsByClassName('hide');
+  for(i = 0; i <srcElement.length; i++) {
+    srcElement[i].style.display = 'none';
+  }
   document.getElementById('post-text').value = "";
   document.getElementById('picture-text').value = "";
   document.getElementById('topic-text').value = "";
 }
 
 //search bar
-var searchInput = document.getElementById('search-input');
-searchInput.addEventListener('keyup', function(event) {
-  var searchbar = searchInput.value;
+var search = document.getElementById('search-button');
+search.addEventListener('click', function(event){
+  var searchbar = document.getElementById('search-input').value;
   var input = document.getElementsByClassName('post-and-replies');
-  console.log("Searchbar Value:", searchbar);
+  console.log(searchbar);
   for(var i = 0; i < postElements.length; i++){
-    //console.log(input[i].innerText);
+    console.log(input[i].innerText);
     if(!input[i].innerText.includes(searchbar))
       input[i].style.display = "none";
     else {
       input[i].style.display = "";
     }
   }
-});
-
-//database search
-var search = document.getElementById('search-button');
-search.addEventListener('click', function(event) {
-  var searchTerm = searchInput.value;
-  var requestURL = '/search/' + searchTerm;
-  window.location.href = requestURL;
-});
+})
