@@ -55,6 +55,8 @@ function setNightMode() {
     root.style.setProperty('--postBackgroundColor', '#13110f');
     root.style.setProperty('--postBorderColor', '#453d34');
     root.style.setProperty('--textColor', '#9f9791');
+    root.style.setProperty('--buttonBackgroundColor', '#323147');
+    root.style.setProperty('--buttonBackgroundHoverColor', '#453d34');
   } else {
     root.style.setProperty('--mainBackgroundColor', '');
     root.style.setProperty('--sideBarBackgroundColor', '');
@@ -62,6 +64,8 @@ function setNightMode() {
     root.style.setProperty('--postBackgroundColor', '');
     root.style.setProperty('--postBorderColor', '');
     root.style.setProperty('--textColor', '');
+    root.style.setProperty('--buttonBackgroundColor', '');
+    root.style.setProperty('--buttonBackgroundHoverColor', '');
   }
   for (i = 0, len = inputs.length; i < len; i++) {   //changes the input field color
     if(day === 'true'){
@@ -322,17 +326,25 @@ function handleAcceptButton(event) {
 }
 
 //search bar
-var search = document.getElementById('search-button');
-search.addEventListener('click', function(event){
-  var searchbar = document.getElementById('search-input').value;
+var searchInput = document.getElementById('search-input');
+searchInput.addEventListener('keyup', function(event) {
+  var searchbar = searchInput.value;
   var input = document.getElementsByClassName('post-and-replies');
-  console.log(searchbar);
+  console.log("Searchbar Value:", searchbar);
   for(var i = 0; i < postElements.length; i++){
-    console.log(input[i].innerText);
+    //console.log(input[i].innerText);
     if(!input[i].innerText.includes(searchbar))
       input[i].style.display = "none";
     else {
       input[i].style.display = "";
     }
   }
-})
+});
+
+//database search
+var search = document.getElementById('search-button');
+search.addEventListener('click', function(event) {
+  var searchTerm = searchInput.value;
+  var requestURL = '/search/' + searchTerm;
+  window.location.href = requestURL;
+});
