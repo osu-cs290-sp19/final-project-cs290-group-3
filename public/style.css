@@ -92,6 +92,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   padding: 5px;
 }
 #search-button {
+  background-color: var(--postBackgroundColor);
   color: var(--textColor);
   border: 1px solid var(--postBorderColor);
   border-radius: 5px;
@@ -195,13 +196,14 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 
 .post-and-replies button {
+  background-color: var(--mainBackgroundColor);
   border: 1px solid var(--postBorderColor);
   border-radius: 5px;
   padding: 5px;
   cursor: pointer;
 }
 .post-and-replies button:hover {
-  background-color: var(--mainBackgroundColor);
+  background-color: var(--sideBarBackgroundColor);
 }
 
 .post {
