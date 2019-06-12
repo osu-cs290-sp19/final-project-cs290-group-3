@@ -55,6 +55,8 @@ function setNightMode() {
     root.style.setProperty('--postBackgroundColor', '#13110f');
     root.style.setProperty('--postBorderColor', '#453d34');
     root.style.setProperty('--textColor', '#9f9791');
+    root.style.setProperty('--buttonBackgroundColor', '#323147');
+    root.style.setProperty('--buttonBackgroundHoverColor', '#453d34');
   } else {
     root.style.setProperty('--mainBackgroundColor', '');
     root.style.setProperty('--sideBarBackgroundColor', '');
@@ -62,6 +64,8 @@ function setNightMode() {
     root.style.setProperty('--postBackgroundColor', '');
     root.style.setProperty('--postBorderColor', '');
     root.style.setProperty('--textColor', '');
+    root.style.setProperty('--buttonBackgroundColor', '');
+    root.style.setProperty('--buttonBackgroundHoverColor', '');
   }
   for (i = 0, len = inputs.length; i < len; i++) {   //changes the input field color
     if(day === 'true'){

@@ -9,6 +9,8 @@
   --postBackgroundColor: #C2C9DD;
   --postBorderColor: #789BBD;
   --textColor: black;
+  --buttonBackgroundColor: #FAFAFA;
+  --buttonBackgroundHoverColor: #789BBD;
 }
 /* ======================================
               General css
@@ -93,6 +95,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 #search-button {
   color: var(--textColor);
+  background-color: var(--buttonBackgroundColor);
   border: 1px solid var(--postBorderColor);
   border-radius: 5px;
   padding: 5px;
@@ -100,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 
 #search-button:hover {
-  background-color: var(--mainBackgroundColor);
+  background-color: var(--buttonBackgroundHoverColor);
 }
 
 .side-nav-title {
@@ -196,12 +199,13 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 
 .post-and-replies button {
   border: 1px solid var(--postBorderColor);
+  background-color: var(--buttonBackgroundColor);
   border-radius: 5px;
   padding: 5px;
   cursor: pointer;
 }
 .post-and-replies button:hover {
-  background-color: var(--mainBackgroundColor);
+  background-color: var(--buttonBackgroundHoverColor);
 }
 
 .post {
@@ -215,6 +219,8 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 .post img {
   max-height: 200px;
   max-width: 200px;
+  min-height: 50px;
+  min-width: 50px;
   float: left;
   margin: 10px;
   border-radius: 10px;
