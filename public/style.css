@@ -93,7 +93,6 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 #search-button {
   color: var(--textColor);
-  background-color: var(--postBackgroundColor);
   border: 1px solid var(--postBorderColor);
   border-radius: 5px;
   padding: 5px;
@@ -196,7 +195,6 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
 }
 
 .post-and-replies button {
-  background-color: var(--postBackgroundColor);
   border: 1px solid var(--postBorderColor);
   border-radius: 5px;
   padding: 5px;
