@@ -175,7 +175,7 @@ app.post("/:postId/approve", function(req, res, next) {
 });
 
 app.get('/search/:searchTerm', function (req, res, next) {
-  var searchTerm = req.params.searchTerm;
+  var searchTerm = req.params.searchTerm || "admin";
   var regex = new RegExp(searchTerm);
   var collection = db.collection('postData');
   collection.aggregate([// aggregate the pagetitles into an array to display them on the sidebar
