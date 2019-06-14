@@ -259,6 +259,12 @@ function report(event) {
   request.send();
 }
 
+var splitURL = window.location.href.split("/");
+var endOfURL = splitURL[splitURL.length-2];
+if(endOfURL === 'admin') {
+  var button = document.getElementsByClassName("report-button")[0];
+  button.classList.add("hide2");
+}
 
 var newPostButton = document.getElementsByClassName('new-post-button');
 newPostButton[0].addEventListener('click', handleNewPostButton);
