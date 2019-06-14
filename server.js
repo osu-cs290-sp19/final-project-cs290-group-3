@@ -121,8 +121,61 @@ app.get('/thread/:postIds', function (req, res, next) {
   }
 });
 
+app.post("/:postId/reported", function(req, res, next) {
+  var postId = req.params.postId;
+  var collection = db.collection('postData');
+  collection.updateOne(
+      {postId : Number(postId) },
+      {$set: {reported:true}},
+      function(err, result){
+        if(err) {
+          res.status(500).send({
+            error: "Error reporting post"
+          });
+        } else {
+          res.status(200).send("post successfully reported");
+        }
+      }
+  );
+});
+
+app.post("/:postId/delete", function(req, res, next) {
+  var postId = req.params.postId;
+  var collection = db.collection('postData');
+  collection.deleteOne(
+      {postId : Number(postId) },
+      function(err, result){
+        if(err) {
+          res.status(500).send({
+            error: "Error deleting post"
+          });
+        } else {
+          res.status(200).send("post successfully deleted");
+        }
+      }
+  );
+});
+
+app.post("/:postId/approve", function(req, res, next) {
+  var postId = req.params.postId;
+  var collection = db.collection('postData');
+  collection.updateOne(
+      {postId : Number(postId) },
+      {$set: {reported:false}},
+      function(err, result){
+        if(err) {
+          res.status(500).send({
+            error: "Error approving post"
+          });
+        } else {
+          res.status(200).send("post successfully approved");
+        }
+      }
+  );
+});
+
 app.get('/search/:searchTerm', function (req, res, next) {
-  var searchTerm = req.params.searchTerm;
+  var searchTerm = req.params.searchTerm || "admin";
   var regex = new RegExp(searchTerm);
   var collection = db.collection('postData');
   collection.aggregate([// aggregate the pagetitles into an array to display them on the sidebar

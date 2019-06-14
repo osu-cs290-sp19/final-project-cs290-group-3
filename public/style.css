@@ -262,10 +262,13 @@ button {
 }
 
 /* Post Buttons */
-.report-button {
+.report-buttons {
   position: absolute;
   top: 5px;
   right: 5px;
+}
+
+.report-button, .delete-button {
   color: red;
 }
 
