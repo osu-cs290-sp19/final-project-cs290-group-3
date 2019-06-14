@@ -142,6 +142,10 @@ function postEventListener(event) {
     threadView(event);
   } else if(event.target.classList.contains("report-button")){
     report(event);
+  } else if(event.target.classList.contains("accept-button")){
+    keep(event);
+  } else if(event.target.classList.contains("delete-button")){
+    remove(event);
   }
 }
 
@@ -270,7 +274,46 @@ if(endOfURL === 'admin') {
     button[i].classList.add("hide2");
     approve[i].classList.remove("hide2");
     delet[i].classList.remove("hide2");
+    button[i].parentNode.parentNode.childNodes[5].style.paddingRight = "110px";
   }
+}
+
+function keep(event){
+  var request = new XMLHttpRequest();
+  var postId = event.target.parentNode.parentNode.getAttribute('postId');
+  var requestURL = '/' + postId + '/approve';
+  request.open('POST', requestURL);
+  var previousTarget = event.target;
+  request.addEventListener('load', function (event) {
+
+    if(event.target.status !== 200){
+      var message = event.target.response;
+      alert("Error accepting post!");
+    }
+    else {
+      previousTarget.parentNode.parentNode.style.display = "none";
+    }
+    });
+  request.send();
+}
+
+function remove(event){
+  var request = new XMLHttpRequest();
+  var postId = event.target.parentNode.parentNode.getAttribute('postId');
+  var requestURL = '/' + postId + '/delete';
+  request.open('POST', requestURL);
+  var previousTarget = event.target;
+  request.addEventListener('load', function (event) {
+
+    if(event.target.status !== 200){
+      var message = event.target.response;
+      alert("Error deleting post!");
+    }
+    else {
+      previousTarget.parentNode.parentNode.style.display = "none";
+    }
+    });
+  request.send();
 }
 
 var newPostButton = document.getElementsByClassName('new-post-button');
