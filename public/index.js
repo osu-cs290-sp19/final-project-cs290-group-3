@@ -326,6 +326,9 @@ function handleAcceptButton(event) {
       }
     });
     request.send(requestBody);
+  } else {
+    alert("Must enter something in all 3 boxes");
+    return;
   }
   srcElement = document.getElementsByClassName('hide');
   for(i = 0; i <srcElement.length; i++) {
