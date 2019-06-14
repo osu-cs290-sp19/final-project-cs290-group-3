@@ -241,8 +241,22 @@ function postReply(event) {
 
 //report button
 function report(event) {
-  event.target.parentNode.parentNode.style.display = "none";
-  alert("This post has been sent to moderators.");
+  var request = new XMLHttpRequest();
+  var postId = event.target.parentNode.parentNode.getAttribute('postId');
+  var requestURL = '/' + postId + '/reported';
+  request.open('POST', requestURL);
+  var previousTarget = event.target;
+  request.addEventListener('load', function (event) {
+
+    if(event.target.status !== 200){
+      var message = event.target.response;
+      alert("Error reporting post!");
+    }
+    else {
+      alert("Sorry about the offensive posts :(, Moderators will look at the post soon.");
+    }
+    });
+  request.send();
 }
 
 
@@ -325,12 +339,12 @@ function handleAcceptButton(event) {
 //search bar
 var searchInput = document.getElementById('search-input');
 searchInput.addEventListener('keyup', function(event) {
-  var searchbar = searchInput.value;
+  var searchbar = searchInput.value.toLowerCase();
   var input = document.getElementsByClassName('post-and-replies');
   console.log("Searchbar Value:", searchbar);
   for(var i = 0; i < postElements.length; i++){
     //console.log(input[i].innerText);
-    if(!input[i].innerText.includes(searchbar))
+    if(!input[i].innerText.toLowerCase().includes(searchbar))
       input[i].style.display = "none";
     else {
       input[i].style.display = "";

@@ -121,6 +121,25 @@ app.get('/thread/:postIds', function (req, res, next) {
   }
 });
 
+app.post("/:postId/reported", function(req, res, next) {
+  var postId = req.params.postId;
+  var collection = db.collection('postData');
+  console.log("test:", postId);
+  collection.updateOne(
+      {postId : Number(postId) },
+      {$set: {reported:true}},
+      function(err, result){
+        if(err) {
+          res.status(500).send({
+            error: "Error reporting post"
+          });
+        } else {
+          res.status(200).send("post successfully reported");
+        }
+      }
+  );
+});
+
 app.get('/search/:searchTerm', function (req, res, next) {
   var searchTerm = req.params.searchTerm;
   var regex = new RegExp(searchTerm);
