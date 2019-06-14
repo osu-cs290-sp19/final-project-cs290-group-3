@@ -142,7 +142,7 @@ function postEventListener(event) {
     threadView(event);
   } else if(event.target.classList.contains("report-button")){
     report(event);
-  } else if(event.target.classList.contains("accept-button")){
+  } else if(event.target.classList.contains("approve-button")){
     keep(event);
   } else if(event.target.classList.contains("delete-button")){
     remove(event);
