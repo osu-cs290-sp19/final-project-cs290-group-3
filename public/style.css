@@ -210,11 +210,8 @@ h1, h2, h3, h4, h5, h6 {margin: 0;}
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
 }
 .post-and-replies button:hover {
-<<<<<<< HEAD
-  background-color: var(--sideBarBackgroundColor);
-=======
   background-color: var(--buttonBackgroundHoverColor);
->>>>>>> d9d124e7b4a5015ba86c023b123a30829ed16fbb
+
 }
 
 .post {
